@@ -17,14 +17,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(
-      name="SEMOpt",
-      version="1.0.0",
+      name="semopt",
+      version="1.0.1",
       author="Meshcheryakov Georgy Andreyevich",
       author_email="metsheryakov_ga@spbstu.ru",
       description="Structural Equation Modelling optimization package.",
       long_description=long_description,
       long_description_content_type="text/markdown",
-      url="https://https://bitbucket.org/herrberg/semopt/",
+      url="https://bitbucket.org/herrberg/semopt/",
       ext_modules=cythonize(find_pyx(), language_level=3),
       include_dirs=[numpy.get_include()],
       packages=find_packages(),
