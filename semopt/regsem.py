@@ -1,5 +1,5 @@
 from .utils import get_cv_data_ann_kfold as get_cv_data
-from .optimizer import optimizer as Opt
+from .optimizer import Optimizer as Opt
 from .stats import calculate_p_values
 from collections import namedtuple
 from .full_model import FullModel
@@ -10,7 +10,7 @@ TestResult = namedtuple('TestResult', ['ml_trn', 'ml_cv_mean', 'ml_cv',
                                        'pvals_nums', 'pvals'])
 
 
-class StructureAnalyser(object):
+class StructureAnalyzer(object):
     def __init__(self, observed_variables: list, model_desc: str, data):
         """
         Keyword arguments:

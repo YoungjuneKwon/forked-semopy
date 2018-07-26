@@ -1,10 +1,10 @@
 # SEMOpt
 
-**SEMOpt** is an umbrella package that includes verstatile Structural Equation Modelling (SEM) optimization (**Optimizator**, **Model**), model selection (**StructureAnalyser**) and model generation (**ModelGenerator**) modules.
+**SEMOpt** is an umbrella package that includes verstatile Structural Equation Modelling (SEM) optimization (**Optimizator**, **Model**), model selection (**StructureAnalyzer**) and model generation (**model_generator**) modules.
 
 ## Authors
 
-* **Mescheryakov Georgy Andreyevich** - *Code* - [Herrberg](https://bitbucket.org/herrberg) - undegraduate student, SPbSTU
+* **Mescheryakov Georgy Andreyevich** - *Programmer* - [Herrberg](https://bitbucket.org/herrberg) - undegraduate student, SPbSTU
 * **Igolkina Anna Andreyevna** - *Scientific adviser* - [IgAnna](https://github.com/iganna) - PhD, SPbSTU
 
 ## License

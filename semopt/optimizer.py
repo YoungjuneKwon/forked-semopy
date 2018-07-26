@@ -1,4 +1,4 @@
-from .Portmin.optimization import minimize as portmin
+from portmin import minimize as portmin
 from .utils import chol_inv
 from scipy.optimize import minimize
 from pandas import DataFrame

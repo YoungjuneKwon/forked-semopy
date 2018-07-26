@@ -2,8 +2,8 @@ import graphviz as gv
 from .model import Model
 
 
-def visualise(model: Model, structural_part=True, measurement_part=False):
-    """Visualisation of SEM model via graphviz library.
+def visualize(model: Model, structural_part=True, measurement_part=False):
+    """Visualization of SEM model via graphviz library.
 
     Keyword arguments:
     model            -- A SEM model.
