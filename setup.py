@@ -1,5 +1,5 @@
-from Cython.Build import cythonize, build_ext
 from setuptools import setup, find_packages
+from Cython.Build import cythonize
 import numpy
 import os
 
@@ -27,7 +27,6 @@ setup(
       url="https://bitbucket.org/herrberg/semopt/",
       ext_modules=cythonize(find_pyx(), language_level=3),
       include_dirs=[numpy.get_include()],
-      build_ext: build_ext,
       packages=find_packages(),
       classifiers=(
         	   "Programming Language :: Python :: 3",
