@@ -6,4 +6,4 @@ from .inspector import inspect
 from .model import Model
 
 
-name = "semopt"
+name = "semopy"
