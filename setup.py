@@ -7,13 +7,13 @@ with open("README.md", "r") as fh:
 setup(
       install_requires=['portmin', 'scipy', 'numpy', 'pandas'],
       name="semopy",
-      version="1.0.0",
+      version="1.0.2",
       author="Meshcheryakov Georgy Andreyevich",
       author_email="metsheryakov_ga@spbstu.ru",
       description="Structural Equation Modelling optimization package.",
       long_description=long_description,
       long_description_content_type="text/markdown",
-      url="https://bitbucket.org/herrberg/semopt/",
+      url="https://bitbucket.org/herrberg/semopy/",
       packages=find_packages(),
       classifiers=(
               "Programming Language :: Python :: 3",
