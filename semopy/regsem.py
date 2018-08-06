@@ -6,28 +6,30 @@ from .full_model import FullModel
 from .model import Model
 import numpy as np
 
-TestResult = namedtuple('TestResult', ['ml_trn', 'ml_cv_mean', 'ml_cv',
-                                       'pvals_nums', 'pvals'])
+TestResult = namedtuple('TestResult', ['ml_trn', 'ml_cv_mean', 'ml_cv'])
 
 
 class StructureAnalyzer(object):
-    def __init__(self, observed_variables: list, model_desc: str, data):
+    def __init__(self, observed_variables: list, model_desc: str, data,
+                 use_cv=True):
         """
         Keyword arguments:
-            observed-variables -- A list of observed variables whose
-                                  relationships are unclear.
-            model_desc         -- A model description in a valid syntax,
-                                  usually assumed to be a measurement part,
-                                  but extra information (given caution)
-                                  can be provided.
-            data                - A data.
+        observed-variables -- A list of observed variables whose
+                              relationships are unclear.
+        model_desc         -- A model description in a valid syntax,
+                              usually assumed to be a measurement part,
+                              but extra information (given caution)
+                              can be provided.
+        data               -- A data.
+        use_cv             -- Use cross-validation.
         """
         self.observed_vars = observed_variables
         self.model_desc = model_desc
         self.full_data = data.copy()
         self.training_set, self.testing_sets = get_cv_data(data)
-        self.training_set = self.full_data
-        self.testing_sets = [self.full_data]
+        if not use_cv:
+            self.training_set = self.full_data
+            self.testing_sets = [self.full_data]
 
     def get_model(self, params_to_ignore):
         model = FullModel(self.observed_vars, self.model_desc,
@@ -42,15 +44,15 @@ class StructureAnalyzer(object):
         opt = Opt(model)
         opt.load_dataset(self.training_set)
         lf = opt.optimize()
-        pvals = np.array(calculate_p_values(opt))
-        pvals = pvals[list(range(*model.beta_range))]
-        pvals_nums = np.count_nonzero((pvals > 1e-1) | np.isnan(pvals))
+#        pvals = np.zeros((model.beta_range[1] - model.beta_range[0],))
         for data in self.testing_sets:
             data = data[model.vars['IndsObs']]
             cov = np.cov(data, rowvar=False, bias=True)
             opt.mx_cov = cov
             mls.append(opt.ml_wishart(opt.params))
-        return TestResult(lf, np.mean(mls), mls, pvals_nums, sum(pvals))
+#        pvals /= len(self.testing_sets)
+#        pvals_nums = np.count_nonzero((pvals > 1e-1) | np.isnan(pvals))
+        return TestResult(lf, np.mean(mls), mls)
 
     def get_least_significant_param(self, pvalues, params_to_pen, model, opt):
         pvalues = np.array(pvalues)
@@ -68,6 +70,10 @@ class StructureAnalyzer(object):
         lval, rval = model.beta_names[0][m], model.beta_names[1][n]
         return lval, rval
 
+    def get_num_pvals(self, opt, pvals):
+        pvals = np.array(pvals)
+        return np.count_nonzero(pvals[list(range(*opt.model.beta_range))] > 5e-2)
+
     def get_model_description(self, model):
         d = model.description
         op = model.operations.REGRESSION
@@ -81,37 +87,78 @@ class StructureAnalyzer(object):
                 s += '{} =~ {}\n'.format(lv, ' + '.join(list(d[lv][op].keys())))
         return s
 
-    def run(self, a: float, b: float, step: float, regu='l2'):
+    def run(self):
         params_to_ignore = set()
-        for alpha in np.arange(a, b, step):
+        while True:
             model = self.get_model(params_to_ignore)
             params_to_pen = list(range(*model.beta_range))
             opt = Opt(model)
             lf = opt.optimize()
+            conn = self.get_num_components_connected(opt)
+            if conn < 6:
+                break
             pvalues = calculate_p_values(opt)
+            num_pvals = self.get_num_pvals(opt, pvalues)
             ind = self.get_least_significant_param(pvalues, params_to_pen,
                                                    model, opt)
             params_to_ignore.add(ind)
+            if len(params_to_pen) > 2 * conn:
+                lf = np.inf
             desc = self.get_model_description(model)
-            yield (alpha, lf, 0, self.test_model_cv(model), desc)
-            print(len(params_to_pen), lf)
+            yield lf, self.test_model_cv(model), num_pvals, conn, desc
             if len(params_to_pen) < 2:
                 break
 
-    def analyse(self, a: float, b: float, step: float, regu='l2',
-                pval_cutoff=0.1):
-        alphas, lfs, rfs, descs = list(), list(), list(), list()
+    def get_num_components_connected(self, opt):
+        """Get number of variables present in structural part.
+
+        Keyword arguments:
+        opt -- Optimizer with optimized parameters.
+
+        Returns:
+        Number of variables
+        """
+        n = opt.mx_beta.shape[0]
+        for i in range(n):
+            r_nonzeros = np.abs(opt.mx_beta[i]) > 1e-16
+            c_nonzeros = np.abs(opt.mx_beta[:, i]) > 1e-16
+            num_nonzeros = r_nonzeros | c_nonzeros
+            if not np.count_nonzero(num_nonzeros):
+                n -= 1
+        return n
+
+    def analyze(self, print_status=False):
+        """Wraps run method and returns helper structures.
+
+        Keyword arguments:
+        print_status -- Whether to print intermediate information on each step.
+
+        Returns:
+        Array of models numbers, MLs of FullModel, mean CV ML, CV MLs, numbers
+        of p-values exceeding set bound, sums of pvalues, numbers of present
+        in variables in structural part, models' descriptions
+        """
+        n, lfs, descs = list(), list(), list()
         ml_trns, ml_means, ml_cvs = list(), list(), list()
-        pvals_nums, pvals = list(), list()
-        for alpha, lf, rf, test, desc in self.run(a, b, step, regu):
-            alphas.append(alpha)
+        pvals_nums, conns = list(), list()
+        for i, (lf, test, num_pvals, conn, desc) in enumerate(self.run()):
+            if lf is None or lf is np.nan:
+                continue
+            n.append(i)
             lfs.append(lf)
-            rfs.append(rf)
+            conns.append(conn)
             ml_trns.append(test.ml_trn)
             ml_means.append(test.ml_cv_mean)
             ml_cvs.append(test.ml_cv)
-            pvals_nums.append(test.pvals_nums)
-            pvals.append(test.pvals)
+            pvals_nums.append(num_pvals)
             descs.append(desc)
-        ml_cvs = np.array(ml_cvs).T
-        return alphas, lfs, rfs, ml_trns, ml_means, ml_cvs, pvals_nums, pvals, descs
+            if ml_means[-1] > 16:
+                break
+            if print_status:
+                print("Step {}, {:.4f}, {:.4f}, pnum: {}".format(i,
+                                                                 test.ml_cv_mean,
+                                                                 lf, num_pvals))
+        n, lfs, ml_cvs = np.array(n), np.array(lfs), np.array(ml_cvs).T
+        ml_means, conns = np.array(ml_means), np.array(conns)
+        pvals_nums = np.array(pvals_nums)
+        return n, lfs, ml_trns, ml_means, ml_cvs, pvals_nums, conns, descs

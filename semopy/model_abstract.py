@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from pandas import DataFrame
 from .parser import Parser
+from numpy import unique
+from .utils import cov
 from enum import Enum
-from numpy import cov, unique
 
 
 class SEMOperations(Enum):
@@ -83,7 +84,6 @@ class ModelABC(ABC):
         self.vars['LatExo'] = sorted(list(latents & exogenous))
         self.vars['LatEndo'] = sorted(list(latents & endogenous))
         self.vars['Latents'] = sorted(list(latents))
-        #self.vars['LatEndo'] + self.vars['LatExo']
         self.vars['ObsExo'] = sorted(list(observed & exogenous))
         self.vars['ObsEndo'] = sorted(list(observed & endogenous))
         self.vars['Observed'] = self.vars['ObsEndo'] + self.vars['ObsExo']
@@ -97,7 +97,7 @@ class ModelABC(ABC):
         self.vars['Binary'] = list()
         self.vars['Categorical'] = list()
 
-    def load_dataset(self, data: DataFrame, bias=True, center=True):
+    def load_dataset(self, data: DataFrame, bias=True):
         data = data[self.vars['IndsObs']]
         for v in self.vars['IndsObs']:
             num_uniqs = len(unique(data[v]))
@@ -107,10 +107,8 @@ class ModelABC(ABC):
                 if num_uniqs == 1:
                     print("Warning: variable {} attains only one value".format(v))
                 self.vars['Categorical'].append(v)
-        if center:
-            data -= data.mean(axis=0)
         self.raw_data = data.values
-        self.mx_cov = cov(self.raw_data, rowvar=False, bias=bias)
+        self.mx_cov = cov(self.raw_data, bias=bias)
 
     @abstractmethod
     def parse_operation(self, op, lvalue, rvalue, args):

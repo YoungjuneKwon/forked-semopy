@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 setup(
       install_requires=['portmin', 'scipy', 'numpy', 'pandas'],
       name="semopy",
-      version="1.0.2",
+      version="1.0.3",
       author="Meshcheryakov Georgy Andreyevich",
       author_email="metsheryakov_ga@spbstu.ru",
       description="Structural Equation Modelling optimization package.",

@@ -3,6 +3,7 @@ from .utils import chol_inv
 from scipy.optimize import minimize
 from pandas import DataFrame
 from .model import Model
+from .utils import cov as cov_f
 import numpy as np
 
 
@@ -188,8 +189,8 @@ class Optimizer:
         cov = self.mx_cov.copy()
 
         def iteration(j, m_t, v_t, b1_t, b2_t, x):
-            self.mx_cov = np.cov(self.profiles[j:j+chunk_size, :],
-                                 rowvar=False, bias=True)
+            self.mx_cov = cov_f(self.profiles[j:j+chunk_size, :],
+                                bias=True)
             g = grad(x)
             m_t = beta1 * m_t + (1 - beta1) * g
             v_t = beta2 * v_t + (1 - beta1) * (g ** 2)
@@ -224,8 +225,8 @@ class Optimizer:
         cov = self.mx_cov.copy()
 
         def iteration(j,  x, v_t):
-            self.mx_cov = np.cov(self.profiles[j:j+chunk_size, :],
-                                 rowvar=False, bias=True)
+            self.mx_cov = cov_f(self.profiles[j:j+chunk_size, :],
+                                rowvar=False, bias=True)
             v_tn = resistance * v_t + step * grad(x)
             x_next = x - v_tn
             self.mx_cov = cov
@@ -257,8 +258,8 @@ class Optimizer:
         for i in range(num_epochs):
             np.random.shuffle(self.profiles)
             for j in range(0, len(self.profiles), chunk_size):
-                self.mx_cov = np.cov(self.profiles[j:j+chunk_size, :],
-                                     rowvar=False, bias=True)
+                self.mx_cov = cov_f(self.profiles[j:j+chunk_size, :],
+                                    bias=True)
                 tx = x - step * grad(x)
                 self.mx_cov = cov
                 f_val = lf(tx)
@@ -274,8 +275,8 @@ class Optimizer:
         cov = self.mx_cov.copy()
 
         def iteration(j, x, v_t):
-            self.mx_cov = np.cov(self.profiles[j:j+chunk_size, :],
-                                 rowvar=False, bias=True)
+            self.mx_cov = cov_f(self.profiles[j:j+chunk_size, :],
+                                bias=True)
             try:
                 v_tn = resistance * v_t + step * grad(x - resistance * v_t)
             except np.linalg.LinAlgError:

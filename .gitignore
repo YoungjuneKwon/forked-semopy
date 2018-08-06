@@ -4,3 +4,7 @@
 \.eggs/scipy-1\.1\.0-py3\.6-linux-x86_64\.egg/scipy/\.libs/
 
 \.eggs/scipy-1\.1\.0-py3\.6-linux-x86_64\.egg/scipy/_lib/tests/
+
+dist/
+
+semopy\.egg-info/

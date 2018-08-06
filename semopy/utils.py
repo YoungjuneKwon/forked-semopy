@@ -3,6 +3,20 @@ from pandas import DataFrame
 import numpy as np
 
 
+def cov(x: np.array, bias=True,):
+    """Computes covariance matrix taking in account missing values.
+
+    Key arguments:
+    x    -- A DataFrame.
+    bias -- Bias.
+
+    Returns:
+    Covariance matrix.
+    """
+    masked_x = np.ma.array(x, mask=np.isnan(x))
+    return np.ma.cov(masked_x, bias=bias, rowvar=False).data
+
+
 def chol_inv(x: np.array):
     """Calculates invserse of matrix using Cholesky decomposition.
 

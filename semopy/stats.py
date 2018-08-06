@@ -1,5 +1,6 @@
 from .optimizer import Optimizer
 from collections import namedtuple
+from scipy.special import multigammaln
 from scipy.stats import norm
 from .utils import chol_inv
 import numpy as np
@@ -34,9 +35,15 @@ def calculate_likelihood(opt: Optimizer):
     Wishart likelihood.
     """
     sigma, _ = opt.get_sigma()
-    n = (opt.profiles.shape[0] - 1) / 2
-    return -n * (np.einsum('ij,ji->', opt.mx_cov, chol_inv(sigma)) +\
-                 np.linalg.slogdet(sigma)[1])
+    p = sigma.shape[0]
+    n = opt.model.num_params
+    tr = -np.einsum('ij,ji->', opt.mx_cov, chol_inv(sigma)) / 2
+    det_s = (n - p - 1) / 2 * opt.cov_logdet
+    det_sigma = - n * np.linalg.slogdet(sigma)[1] / 2
+    det = det_s + det_sigma
+    c = - n / 2 * np.log(2)
+    lngamma = -multigammaln(n / 2, p)
+    return tr + det + c + lngamma
 
 
 def calculate_aic(opt: Optimizer, lh=None):

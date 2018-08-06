@@ -42,7 +42,7 @@ class Model(ModelABC):
             i, j = self.lambda_names[0].index(v), self.lambda_names[1].index(v)
             self.mx_lambda[i, j] = 1.0
 
-    def load_dataset(self, data: DataFrame, bias=True, center=True):
+    def load_dataset(self, data: DataFrame, bias=True):
         """Loads dataset and applies starting values.
 
         Keyword arguments:
@@ -50,8 +50,9 @@ class Model(ModelABC):
         bias   -- Shall we calculated covariance matrix using np.cov with
                   bias=True or bias=False.
         center -- Shall we center data (substract means along cols)?
+        std    -- Shall we divide columns by its' variances?
         """
-        super().load_dataset(data, bias, center)
+        super().load_dataset(data, bias)
         cov = DataFrame(self.mx_cov, index=self.vars['IndsObs'],
                         columns=self.vars['IndsObs'])
         for v1, v2 in chain(product(self.vars['ObsExo'], repeat=2),
@@ -89,20 +90,7 @@ class Model(ModelABC):
         for ind in self.parameters['Beta']:
             params_inds = np.append(params_inds, ind)
             if np.isnan(self.mx_beta[ind]):
-#                l, r = self.beta_names[0][ind[0]], self.beta_names[1][ind[1]]
-#                ml, mr = 1.0, 1.0
-#                if l in self.vars['Latents']:
-#                    i = self.lambda_names[1].index(l)
-#                    l = self.first_indicators[l]
-#                    j = self.lambda_names[0].index(l)
-#                    ml = self.mx_lambda[j, i]
-#                if r in self.vars['Latents']:
-#                    i = self.lambda_names[1].index(r)
-#                    r = self.first_indicators[r]
-#                    j = self.lambda_names[0].index(r)
-#                    mr = self.mx_lambda[j, i]
-#                slope = linregress(mr * data[r], ml * data[l]).slope
-                self.mx_beta[ind] = 0#slope
+                self.mx_beta[ind] = 0
             self.param_vals[k] = self.mx_beta[ind]
             k += 1
         self.beta_range = (self.beta_range, k)
@@ -110,7 +98,8 @@ class Model(ModelABC):
         for ind in self.parameters['Lambda']:
             params_inds = np.append(params_inds, ind)
             if np.isnan(self.mx_lambda[ind]):
-                l, r = self.lambda_names[0][ind[0]], self.lambda_names[1][ind[1]]
+                lambda_names = self.lambda_names
+                l, r = lambda_names[0][ind[0]], lambda_names[1][ind[1]]
                 r = self.first_indicators[r]
                 self.mx_lambda[ind] = linregress(data[r], data[l]).slope
             self.param_vals[k] = self.mx_lambda[ind]
@@ -128,8 +117,8 @@ class Model(ModelABC):
                         self.mx_psi[ind] = cov[l][r] / 2.0
                 else:
                     self.mx_psi[ind] = 0.0
-                    ## TODO: check if cov instead of zero in case of observable
-                    ## variables works better.
+                    # TODO: check if cov instead of zero in case of observable
+                    # variables works better.
             self.mx_psi[ind[::-1]] = self.mx_psi[ind]
             self.param_vals[k] = self.mx_psi[ind]
             k += 1
@@ -143,11 +132,13 @@ class Model(ModelABC):
             k += 1
         self.theta_range = (self.theta_range, k)
         params_inds = np.reshape(params_inds, (k, 2))
-        self.beta_params_inds = params_inds[self.beta_range[0]:self.beta_range[1], :]
-        self.lambda_params_inds = params_inds[self.lambda_range[0]:self.lambda_range[1], :]
-        self.psi_params_inds = params_inds[self.psi_range[0]:self.psi_range[1], :]
+        beta_range, lmb_range = self.beta_range, self.lambda_range
+        psi_range, theta_range = self.psi_range, self.theta_range
+        self.beta_params_inds = params_inds[beta_range[0]:beta_range[1], :]
+        self.lambda_params_inds = params_inds[lmb_range[0]:lmb_range[1], :]
+        self.psi_params_inds = params_inds[psi_range[0]:psi_range[1], :]
         self.psi_params_inds_t = self.psi_params_inds[:, ::-1]
-        self.theta_params_inds = params_inds[self.theta_range[0]:self.theta_range[1], :]
+        self.theta_params_inds = params_inds[theta_range[0]:theta_range[1], :]
 
     def parse_operation(self, op, lvalue, rvalue, args):
         ops = Model.operations

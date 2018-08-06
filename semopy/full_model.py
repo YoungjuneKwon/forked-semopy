@@ -6,14 +6,13 @@ import numpy as np
 
 class FullModel(Model):
     def __init__(self, variable_names: list, model_description: str,
-                 ignored_params=set()):
+                 ignored_params=set(), fix_theta=False):
         """
         Key arguments:
         variable_names    -- names of observed variables from Beta matrix.
         model_description -- description of model (optionally empty),
                              assumed to be description of measurement part.
-        psi_diags         -- Values to be fixed on Psi diagonal.
-        theta_diags       -- Values to be fixed on Theta diagonal.
+        fix_theta         -- Assume Theta to be identity block matrix.
         """
         ops = Model.operations
         parser = Parser(ops)
@@ -26,4 +25,9 @@ class FullModel(Model):
             if (lval, rval) not in ignored_params:
                 description[lval][ops.REGRESSION][rval]
         self.description = deepcopy(description)
+        if fix_theta:
+            inds = [ind for lv in latents
+                    for ind in description[lv][ops.MEASUREMENT]]
+            for ind in inds:
+                description[ind][ops.COVARIANCE][ind] = [1.0]
         super().__init__(None, description, force_load=force_load)
