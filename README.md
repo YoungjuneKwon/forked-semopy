@@ -92,7 +92,7 @@ inspect(opt)
 ~~~
 
 ## Documentation
-All methods and classes have a docstring provided and a **Sphinx**-generated documentation is also available at [ReadTheDocs](ReadTheDocs.io). For more details see an article.
+All methods and classes have a docstring provided and a **Sphinx**-generated documentation is also available at [ReadTheDocs](semopy.readthedocs.io). For more details see an article.
 
 
 ## Authors
