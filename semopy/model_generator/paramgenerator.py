@@ -1,4 +1,5 @@
-from numpy.random import exponential, uniform, normal
+'''The module contains methods to generate parameters for a given model.'''
+from numpy.random import exponential, uniform
 from scipy.stats import truncnorm
 from pandas import DataFrame
 
@@ -18,20 +19,27 @@ def generate_parameters(mpart: dict, spart: dict,
                         mpart_generator=trunc_norm,
                         spart_generator=trunc_norm,
                         mpart_fix_value=1.0):
-    '''
-Generates random parameters for the proposed model.
-Keyword arguments:
-    mpart           -- A measurement part.
-    spart           -- A structural part.
-    mpart_generator -- A function f() that is used to randomly generate
-                       parameters for measurement part.
-    spart_generator -- A function f() that is used to randomly generate
-                       parameters for structural part.
-    mpart_fix_value -- A value to fix with firsts indicators for each latent
-                       variable.
-Returns:
-    Two dictionaries with parameters for spart and mpart in the form
-    {'SomeVariable': [(y1, 1.0), (y2, 5.5)]}
+    '''Generates random parameters for the proposed model.
+    
+    Keyword arguments:
+        
+        mpart           -- A measurement part.
+        
+        spart           -- A structural part.
+        
+        mpart_generator -- A function f() that is used to randomly generate
+                           parameters for measurement part.
+                           
+        spart_generator -- A function f() that is used to randomly generate
+                           parameters for structural part.
+                           
+        mpart_fix_value -- A value to fix with firsts indicators for each latent
+                           variable.
+                           
+    Returns:
+        
+        Two dictionaries with parameters for spart and mpart in the form
+        {'SomeVariable': [(y1, 1.0), (y2, 5.5)]}
     '''
     return generate_parameters_part(mpart, mpart_generator, mpart_fix_value),\
            generate_parameters_part(spart, spart_generator)
@@ -51,14 +59,16 @@ def generate_parameters_part(part: dict, generator, fix_first=None):
     return d
 
 
-def params_set_to_dataframe(spart: dict, mpart: dict, include_first_ind=True):
-    '''
-Translates a set of parameters produced by generate_parameters to a pandas'
-DataFrame.
-Keyword arguments:
-    params -- One of dictionaries returned by generate_parameters.
-Returns:
-    A pandas' DataFrame.
+def params_set_to_dataframe(mpart: dict, spart: dict, include_first_ind=True):
+    '''Translates a set of parameters produced by generate_parameters to a
+    pandas' DataFrame.
+    
+    Keyword arguments:
+        
+        params -- One of dictionaries returned by generate_parameters.
+    Returns:
+        
+        A pandas' DataFrame.
     '''
     lt = list()
     for lv in spart:

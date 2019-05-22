@@ -1,33 +1,46 @@
+'''This module contains methods that generate structural and measurement parts
+of a SEM model.'''
+
+
 from numpy.random import uniform, randint
 from random import choice, shuffle
 from .utils import ThreadsManager
-from itertools import islice
-
 
 def generate_measurement_part(num_latents, num_indicators=(2, 3),
-                              prob_cross_inds=0.0, num_cross_trials=0,
+                              percentage_inds=0.0, max_joint_lats=2,
                               name_latent='eta', name_indicator='y'):
+    '''Generates latent variables and their respective indicators.
+    
+    Keyword arguments:
+    
+        num_latents      -- A number of latent variables.
+    
+        num_indicators   -- A number of indicator variables per latent (a tuple).
+    
+        percentage_inds  -- A percentage of manifest variables to be joined
+                            together.
+    
+        name_latent      -- A name prefix for latent variables ("eta" by default).
+    
+        name_indicator   -- A name prefix for indicator variable ("y" by default).
+    
+    Returns:
+    
+        A measurement part.
     '''
-Generates latent variables and their respective indicators.
-Keyword arguments:
-    num_latents      -- A number of latent variables.
-    num_indicators   -- A number of indicator variables per latent (a tuple).
-    prob_cross_inds  -- A chance that the new indicator will also explain
-                            some other latent variable.
-    num_cross_trials -- A maximum number of tries per indicator to establish
-                        a connection to some other latent variable
-                        NOTE:
-                        The probability that the indicator will have no other
-                        latent variables to explain is:
-                        (1 - IndicatorCrossChance)^IndicatorCrossTries
-    name_latent      -- A name prefix for latent variables ("eta" by default).
-    name_indicator   -- A name prefix for indicator variable ("y" by default).
-Returns:
-    A measurement part.
-    '''
+    def select_manif_set(m_part, n):
+        keys = list(m_part.keys())
+        shuffle(keys)
+        inds = set()
+        for key in keys:
+            t = list(m_part[key].difference(inds))
+            if t:
+                inds.add(choice(t))
+                if len(inds) >= n:
+                    break
+        return list(inds)
     m_part = {'{}{}'.format(name_latent, i + 1): set()
               for i in range(num_latents)}
-    latent_variables = tuple(m_part.keys())
     inds_count = 0
     num_indsA, num_indsB = num_indicators
     for lv in m_part:
@@ -36,11 +49,21 @@ Returns:
         for i in range(num_inds):
             name = '{}{}'.format(name_indicator, inds_count + i + 1)
             inds.add(name)
-            for i in range(num_cross_trials):
-                if prob_cross_inds > uniform():
-                    latent_cross = choice(latent_variables)
-                    m_part[latent_cross].add(name)
         inds_count += num_inds
+    m = int(percentage_inds * inds_count)
+    s = select_manif_set(m_part, 2)
+    n = len(s)
+    while n > 1 and m > 0:
+        base = s[0]
+        s = s[1:]
+        for lv in m_part:
+            for ind in s:
+                if ind in m_part[lv]:
+                    m_part[lv].remove(ind)
+                    m_part[lv].add(base)
+        m -= n - 1
+        s = select_manif_set(m_part, 2)
+        n = len(s)
     return m_part
 
 
@@ -115,17 +138,25 @@ Returns:
 
 def generate_structural_part(m_part: dict, num_observed: int, num_cycles=0,
                              name_observed='x', names_observed=list()):
-    '''
-Keyword arguments:
-    m_part              -- A measurement part to incorporate into a structural
-                           part (including latents).
-    num_observed:       -- A number of observed variables.
-    num_cycles          -- A maximal number of cycles.
-    name_observed       -- A name prefix for observable variables.
-    names_observed      -- A predefinex list of names for the first n observed
-                           variables.
-Returns:
-    A structural part and an auxillary by-product ThreadsManager.
+    '''Generates a structural part.
+
+    Keyword arguments:
+
+        m_part              -- A measurement part to incorporate into a structural
+                               part (including latents).
+
+        num_observed:       -- A number of observed variables.
+        
+        num_cycles          -- A maximal number of cycles.
+        
+        name_observed       -- A name prefix for observable variables.
+        
+        names_observed      -- A predefinex list of names for the first n observed
+                               variables.
+
+    Returns:
+
+        A structural part and an auxillary by-product ThreadsManager.
     '''
     tm = ThreadsManager()
     nodes_stack = list(m_part.keys())
@@ -159,13 +190,17 @@ Returns:
 
 
 def create_model_description(mpart: dict, spart: dict):
-    '''
-Creates a model description in a text form using respective measurement part
-and structural part.
+    '''Creates a model description in a text form using respective measurement
+    part and structural part.
+    
 Keyword arguments:
+    
     mpart -- A measurement part.
+    
     spart -- A structural part.
+    
 Returns:
+    
     A string containing model's description.
     '''
     def translate(d: dict, op: str):

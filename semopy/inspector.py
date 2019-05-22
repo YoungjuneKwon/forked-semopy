@@ -1,18 +1,25 @@
+'''Inspector module is responsible for providing a user information on
+parameters' estimatees in a friendly manner.'''
 from .stats import gather_statistics
 from .optimizer import Optimizer
-from pandas import DataFrame
 from sys import stdout
+import pandas as pd
+import numpy as np
+import sys
 
 
 def inspector_get_mx(opt: Optimizer, mx_name: str):
     """Get matrix as a DataFrame.
 
     Keyword arguments:
-    opt     -- SEM Optimizer.
-    mx_name -- Matrix's name.
+        
+        opt     -- SEM Optimizer.
+        
+        mx_name -- Matrix's name.
 
     Returns:
-    Pandas DataFrame.
+        
+        Pandas DataFrame.
     """
     if mx_name == 'Beta':
         mx = opt.mx_beta
@@ -36,7 +43,7 @@ def inspector_get_mx(opt: Optimizer, mx_name: str):
         rows, cols = opt.model.theta_names
     else:
         raise Exception("Unkown matrix {}".format(mx_name))
-    return DataFrame(data=mx, index=rows, columns=cols)
+    return pd.DataFrame(data=mx, index=rows, columns=cols)
 
 
 def inspect_list(opt: Optimizer):
@@ -44,10 +51,12 @@ def inspect_list(opt: Optimizer):
     clear, readable from. Statistics provided as well.
 
     Keyword arguments:
-    opt -- A SEM optimizer.
+        
+        opt -- A SEM optimizer.
 
     Returns:
-    Pandas' DataFrame.
+        
+        Pandas' DataFrame.
     """
     stats = gather_statistics(opt).params
     lt = list()
@@ -79,28 +88,33 @@ def inspect_list(opt: Optimizer):
         lt.append({'lval': lval, 'op': '~~', 'rval': rval,
                    'Value': stats[i].value, 'SE': stats[i].se,
                    'Z-score': stats[i].zscore, 'P-value': stats[i].pvalue})
-    df = DataFrame(lt, columns=['lval', 'op', 'rval', 'Value', 'SE', 'Z-score',
-                                'P-value'])
+    df = pd.DataFrame(lt, columns=['lval', 'op', 'rval', 'Value', 'SE',
+                                   'Z-score', 'P-value'])
     return df.sort_values(['op', 'lval', 'rval'])
 
 
-def inspect(opt: Optimizer, mode='mx', what='est', output=stdout):
+def inspect(opt: Optimizer, mode='list', what='est', output=stdout):
     """Outputs all the information available given SEM optimizer with
     appropriate parameters.
 
     Keyword arguments:
-    opt     -- SEM Optimizer.
-    mode    -- 'mx' or 'list', inspect prints matrices or list of operations
-                retrieved by inspect_list.
-    what    -- 'est' or 'start', if 'est' then estimated parameters are
-                applied, if 'start' then starting parameters are applied.
-    output  -- Output stream.
+        opt     -- SEM Optimizer.
+        
+        mode    -- 'mx' or 'list', inspect prints matrices or list of operations
+                    retrieved by inspect_list.
+                    
+        what    -- 'est' or 'start', if 'est' then estimated parameters are
+                    applied, if 'start' then starting parameters are applied.
+                    
+        output  -- Output stream.
 
     Returns:
-    A list of of pairs (matrix_name, df matrix) if mode equals 'mx' or
-    pandas DataFrame containing operations if mode=='list'.
+        
+        A list of of pairs (matrix_name, df matrix) if mode equals 'mx' or
+        pandas DataFrame containing operations if mode=='list'.
     """
     ret = None
+    np.set_printoptions(threshold=sys.maxsize)
     tmp_params = opt.params.copy()
     if what == 'est':
         pass
@@ -115,8 +129,10 @@ def inspect(opt: Optimizer, mode='mx', what='est', output=stdout):
         for mx_name in matrices_to_print:
             mx = inspector_get_mx(opt, mx_name)
             ret.append((mx_name, mx))
-            print("{}:".format(mx_name))
-            print(mx, file=output)
+            print("{}:".format(mx_name), file=output)
+            with pd.option_context('display.max_rows', None,
+                                   'display.max_columns', None):
+                print(mx, file=output)
     elif mode == 'list':
         ret = inspect_list(opt)
     else:

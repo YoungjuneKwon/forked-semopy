@@ -1,3 +1,5 @@
+'''This module contains Model class that is used a "meat and bones" of a SEM\\ 
+model.'''
 from itertools import combinations, product, chain
 from .model_abstract import ModelABC
 from scipy.stats import linregress
@@ -6,8 +8,59 @@ import numpy as np
 
 
 class Model(ModelABC):
+    '''Model is responsible for building a mathematical backbone of the
+    SEM-model given a textual (string) description and setting up initial
+    values from data.
+    
+    Keyword arguments:
+        
+            model_description -- A text description of model in semopy syntax.
+            
+            description       -- A description in a dictionary form as returned
+                                 by Parser.
+                                 
+            force_load        -- A set of variables that may not be present in
+                                 the description, yet should be represented in
+                                 a model at least as isolated exogenous
+                                 variables.
+                                 
+            baseline          -- Should model be initialized in a baseline mode
+                                 (all parameters in Beta and Lambda are
+                                  fixed and set to 0 and 1 respectively).
+                                 
+            psi_mode          -- "Full" for default Psi matrix.
+                                 "Diag" for default Psi matrix with zero
+                                 covariances.
+                                 "DiagFixed" for Psi matrix with all diagonal
+                                 elements fixed to their sample values.
+                                 "DiagParam" for Psi matrix with all diagonal
+                                 elements used as parameters.
+    '''
     def __init__(self, model_description: str, description=None,
-                 force_load=set()):
+                 force_load=set(), baseline=False, psi_mode='Full'):
+        """Creates a model instance.
+
+        Keyword arguments:
+            model_description -- A text description of model in semopy syntax.
+            description       -- A description in a dictionary form as returned
+                                 by Parser.
+            force_load        -- A set of variables that may not be present in
+                                 the description, yet should be represented in
+                                 a model at least as isolated exogenous
+                                 variables.
+            baseline          -- Should model be initialized in a baseline mode
+                                 (all parameters in Beta and Lambda are
+                                  fixed and set to 0 and 1 respectively)?
+            psi_mode          -- "Full" for default Psi matrix.
+                                 "Diag" for default Psi matrix with zero
+                                 covariances.
+                                 "DiagFixed" for Psi matrix with all diagonal
+                                 elements fixed to their sample values.
+                                 "DiagParam" for Psi matrix with all diagonal
+                                 elements used as parameters.
+        """
+        self.psi_mode = psi_mode
+        self.baseline = baseline
         super().__init__(model_description, description, force_load)
         self.prepare_diff_matrices()
 
@@ -25,16 +78,24 @@ class Model(ModelABC):
         self.first_indicators = {lv: str() for lv in self.vars['Latents']}
         self.fixed_covars = list()
         self.num_params = 0
-        ops = Model.operations
-        for v in chain(self.vars['ObsEndo'], self.vars['Latents'],
-                       self.vars['Indicators']):
+        ops = self.operations
+        if self.psi_mode == 'Full':
+            for v1, v2 in chain(combinations(self.vars['LatExo'], 2),
+                                combinations(self.vars['Outputs'], 2)):
+                if v1 not in description[v2][ops.COVARIANCE] and\
+                   v2 not in description[v1][ops.COVARIANCE]:
+                    description[v1][ops.COVARIANCE][v2] = list()
+        if self.psi_mode == 'Full' or self.psi_mode == 'Diag':
+            it = chain(self.vars['ObsEndo'], self.vars['Latents'],
+                       self.vars['Indicators'])
+        elif self.psi_mode == 'DiagFixed':
+            it = self.vars['Indicators']
+        elif self.psi_mode == 'DiagParams':
+            it = chain(self.vars['SPart'], self.vars['Indicators'])
+        for v in it:
             if v not in description[v][ops.COVARIANCE]:
-                description[v][ops.COVARIANCE][v] = list()
-        for v1, v2 in chain(combinations(self.vars['LatExo'], 2),
-                            combinations(self.vars['Outputs'], 2)):
-            if v1 not in description[v2][ops.COVARIANCE] and\
-               v2 not in description[v1][ops.COVARIANCE]:
-                   description[v1][ops.COVARIANCE][v2] = list()
+                description[v][ops.COVARIANCE][v] = list()                             
+                    
         super().prepare_parameters(description)
         for mx in self.parameters:
             self.parameters[mx] = sorted(self.parameters[mx])
@@ -42,24 +103,40 @@ class Model(ModelABC):
             i, j = self.lambda_names[0].index(v), self.lambda_names[1].index(v)
             self.mx_lambda[i, j] = 1.0
 
-    def load_dataset(self, data: DataFrame, bias=True):
+    def load_dataset(self, data: DataFrame, center=True, ordcor=False):
         """Loads dataset and applies starting values.
-
+        
         Keyword arguments:
-        data   -- A Pandas' DataFrame containing data.
-        bias   -- Shall we calculated covariance matrix using np.cov with
-                  bias=True or bias=False.
-        center -- Shall we center data (substract means along cols)?
-        std    -- Shall we divide columns by its' variances?
+            
+            data   -- A Pandas' DataFrame containing data.
+            
+            center -- Center data taking in account categorical variables
+                      if ordcor is True.
+                      
+            ordcor -- Whether to use compute a heterogenous correlation matrix
+                      instead of covariance matrix if categorical variables are
+                      present. If iterable, then elements in ordcor are assumed
+                      to be ordinal and no ordinality tests are run.
         """
-        super().load_dataset(data, bias)
+        super().load_dataset(data, center, ordcor)
         cov = DataFrame(self.mx_cov, index=self.vars['IndsObs'],
                         columns=self.vars['IndsObs'])
-        for v1, v2 in chain(product(self.vars['ObsExo'], repeat=2),
-                            self.fixed_covars):
-            ind = (self.psi_names[0].index(v1), self.psi_names[1].index(v2))
-            self.mx_psi[ind] = cov[v1][v2]
-            self.mx_psi[ind[::-1]] = self.mx_psi[ind]
+        if self.psi_mode == 'Full':
+            for v1, v2 in chain(product(self.vars['ObsExo'], repeat=2),
+                                self.fixed_covars):
+                ind = (self.psi_names[0].index(v1),
+                       self.psi_names[1].index(v2))
+                self.mx_psi[ind] = cov[v1][v2]
+                self.mx_psi[ind[::-1]] = self.mx_psi[ind]
+        elif self.psi_mode == 'Diag':
+            for v in self.vars['ObsExo']:
+                i = self.psi_names[0].index(v)
+                self.mx_psi[i, i] = cov[v][v]
+        elif self.psi_mode == 'DiagFixed':
+            for v in self.vars['Observed']:
+                i = self.psi_names[0].index(v)
+                self.mx_psi[i, i] = cov[v][v]
+            # TODO: add Theta support!
         self.postprocess_parameters(data, cov)
 
     def apply_parameters(self, params: np.array, mx_beta: np.array,
@@ -75,13 +152,17 @@ class Model(ModelABC):
         mx_psi[i[:, 0], i[:, 1]] = params[self.psi_range[0]:self.psi_range[1]]
         i = self.theta_params_inds
         mx_theta[i[:, 0], i[:, 1]] = params[self.theta_range[0]:self.theta_range[1]]
+        i = self.theta_params_inds_t
+        mx_theta[i[:, 0], i[:, 1]] = params[self.theta_range[0]:self.theta_range[1]]
 
     def postprocess_parameters(self, data: DataFrame, cov: DataFrame):
         """Creates a fast-to-use array of parameters.
 
         Keyword arguments:
-        data -- A dataframe with sample data.
-        cov  -- A variance-covariance matrix.
+            
+            data -- A dataframe with sample data.
+            
+            cov  -- A variance-covariance matrix.
         """
         self.param_vals = np.zeros(self.num_params)
         params_inds = np.zeros((0,), dtype=int)
@@ -114,9 +195,11 @@ class Model(ModelABC):
                     if l in self.vars['Latents']:
                         self.mx_psi[ind] = 0.05
                     else:
+                        
                         self.mx_psi[ind] = cov[l][r] / 2.0
                 else:
                     self.mx_psi[ind] = 0.0
+                    self.mx_psi[ind[::-1]] = 0.0
                     # TODO: check if cov instead of zero in case of observable
                     # variables works better.
             self.mx_psi[ind[::-1]] = self.mx_psi[ind]
@@ -127,7 +210,12 @@ class Model(ModelABC):
         for ind in self.parameters['Theta']:
             l, r = self.theta_names[0][ind[0]], self.theta_names[1][ind[1]]
             params_inds = np.append(params_inds, ind)
-            self.mx_theta[ind] = cov[l][r] / 2
+            if l == r:
+                self.mx_theta[ind] = cov[l][r] / 2
+            else:
+                self.mx_theta[ind] = 0.0
+                self.mx_theta[ind[::-1]] = 0.0
+#                self.mx_theta[ind[::-1]] = self.mx_theta[ind]
             self.param_vals[k] = self.mx_theta[ind]
             k += 1
         self.theta_range = (self.theta_range, k)
@@ -139,9 +227,11 @@ class Model(ModelABC):
         self.psi_params_inds = params_inds[psi_range[0]:psi_range[1], :]
         self.psi_params_inds_t = self.psi_params_inds[:, ::-1]
         self.theta_params_inds = params_inds[theta_range[0]:theta_range[1], :]
+        self.theta_params_inds_t = self.theta_params_inds[:, ::-1]
 
     def parse_operation(self, op, lvalue, rvalue, args):
-        ops = Model.operations
+        super().parse_operation(op, lvalue, rvalue, args)
+        ops = self.operations
         if op == ops.REGRESSION:
             ind_lv = self.beta_names[0].index(lvalue)
             ind_rv = self.beta_names[1].index(rvalue)
@@ -149,7 +239,10 @@ class Model(ModelABC):
             if ind in self.parameters['Beta']:
                 raise Exception("Operation {} {} {} already specified.".format(lvalue, op, rvalue))
             try:
-                self.mx_beta[ind] = float(args[0])
+                if self.baseline:
+                    self.mx_beta[ind] = 0
+                else:
+                    self.mx_beta[ind] = float(args[0])
             except Exception:
                 self.num_params += 1
                 self.parameters['Beta'].append(ind)
@@ -161,9 +254,12 @@ class Model(ModelABC):
             if ind in self.parameters['Lambda']:
                 raise Exception("Operation {} {} {} already specified.".format(lvalue, op, rvalue))
             try:
-                self.mx_lambda[ind] = float(args[0])
-                if not self.first_indicators[lvalue]:
-                    self.first_indicators[lvalue] = rvalue
+                if self.baseline:
+                    self.mx_lambda[ind] = 1.0
+                else:
+                    self.mx_lambda[ind] = float(args[0])
+                    if not self.first_indicators[lvalue]:
+                        self.first_indicators[lvalue] = rvalue
             except Exception:
                 # Let's make sure that we didn't fix at least one variable yet.
                 if np.any(self.mx_lambda[:, ind[1]] != 0.0):
@@ -188,24 +284,27 @@ class Model(ModelABC):
             if ind in self.parameters[mx_name]:
                 raise Exception("Operation {} {} {} already specified.".format(lvalue, op, rvalue))
             try:
-                mx[ind] = float(args[0])
+                if self.baseline and (ind_lv != ind_rv or\
+                                     lvalue in self.vars['Latents']):
+                    mx[ind] = 0
+                else:
+                    mx[ind] = float(args[0])
             except Exception:
-                if len(args) and args[0] == 'sv':
+                if len(args) and args[0] == 'fixcv':
                     self.fixed_covars.append((lvalue, rvalue))
                 else:
                     self.num_params += 1
                     self.parameters[mx_name].append(ind)
-                    mx[ind] = np.nan
-        else:
-            raise NotImplementedError("{} is an uknown opcode.".format(op))
+                mx[ind] = np.nan
+            mx[ind[::-1]] = mx[ind]
 
     def build_beta(self):
-        """
-        Sets up a zero Beta matrix using info on classified variables.
-
+        """Sets up a zero Beta matrix using info on classified variables.
+        
         Returns:
-        A zero Beta matrix and a tuple of correspondin rows and columns
-        names.
+            
+            A zero Beta matrix and a tuple of correspondin rows and columns
+            names.
         """
         rows = self.vars['SPart']
         cols = rows
@@ -216,6 +315,7 @@ class Model(ModelABC):
         """Sets up a zero Lambda matrix using info on classified variables.
 
         Returns:
+            
         A zero Lambda matrix and a tuple of correspondin rows and columns
         names.
         """
@@ -227,10 +327,11 @@ class Model(ModelABC):
 
     def build_psi(self):
         """Sets up a zero Psi matrix using info on classified variables.
-
+        
         Returns:
-        A zero Psi matrix and a tuple of correspondin rows and columns
-        names.
+        
+            A zero Psi matrix and a tuple of correspondin rows and columns
+            names.
         """
         rows = self.vars['SPart']
         cols = rows
@@ -239,10 +340,11 @@ class Model(ModelABC):
 
     def build_theta(self):
         """Sets up a zero Theta matrix using info on classified variables.
-
+        
         Returns:
-        A zero Theta matrix and a tuple of correspondin rows and columns
-        names.
+        
+            A zero Theta matrix and a tuple of correspondin rows and columns
+            names.
         """
         rows = self.vars['IndsObs']
         cols = rows
@@ -268,23 +370,28 @@ class Model(ModelABC):
         for mx in self.mx_names:
             for i, j in self.parameters[mx]:
                 if i == j and mx in mx_to_fix:
-                    bounds.append((None, None))
+                    bounds.append((0, None))
                 else:
                     bounds.append((None, None))
         return bounds
 
     def calculate_sigma(self, mx_beta, mx_lambda, mx_psi, mx_theta):
         """Calculates Sigma matrix.
-
+        
         Keyword arguments:
-        mx_beta   -- Beta matrix.
-        mx_lambda -- Lambda matrix.
-        mx_psi    -- Psi matrix.
-        mx_theta  -- Theta matrix.
-
+            
+            mx_beta   -- Beta matrix.
+            
+            mx_lambda -- Lambda matrix.
+            
+            mx_psi    -- Psi matrix.
+            
+            mx_theta  -- Theta matrix.
+            
         Returns:
-        Sigma matrix and pair (Lambda (E - B)^-1, (E - B)^-1) for auxilary
-        purposes.
+            
+            Sigma matrix and pair (Lambda (E - B)^-1, (E - B)^-1) for auxilary
+            purposes.
         """
         c = np.linalg.inv(np.identity(mx_beta.shape[0]) - mx_beta)
         m = mx_lambda @ c
@@ -293,18 +400,25 @@ class Model(ModelABC):
     def calculate_sigma_gradient(self, mx_beta, mx_lambda, mx_psi, mx_theta,
                                  m=None, c=None):
         """Calculates Sigma matrix gradient.
-
+        
         Keyword arguments:
-        mx_beta   -- Beta matrix.
-        mx_lambda -- Lambda matrix.
-        mx_psi    -- Psi matrix.
-        mx_theta  -- Theta matrix.
-        m         -- Lambda (E - B)^-1 if precalculated.
-        c         -- (E - B)^-1 if precalculated.
-
+            
+            mx_beta   -- Beta matrix.
+            
+            mx_lambda -- Lambda matrix.
+            
+            mx_psi    -- Psi matrix.
+            
+            mx_theta  -- Theta matrix.
+            
+            m         -- Lambda (E - B)^-1 if precalculated.
+            
+            c         -- (E - B)^-1 if precalculated.
+            
         Returns:
-        List of Sigma derivatives w.r.t to parameters in order as specified
-        in self.params and self.parameters.
+            
+            List of Sigma derivatives w.r.t to parameters in order as specified
+            in self.params and self.parameters.
         """
         if c is None:
             c = np.linalg.inv(np.identity(mx_beta.shape[0]) - mx_beta)
@@ -328,25 +442,33 @@ class Model(ModelABC):
                 grad.append(np.zeros_like(mx_theta))
         return grad
 
+
     def calculate_sigma_hessian(self, mx_beta, mx_lambda, mx_psi, mx_theta, m,
                                 c):
         """Calculates Sigma matrix hessian.
-
+        
         Keyword arguments:
-        mx_beta   -- Beta matrix.
-        mx_lambda -- Lambda matrix.
-        mx_psi    -- Psi matrix.
-        mx_theta  -- Theta matrix.
-        m         -- Lambda (E - B)^-1 if precalculated.
-        c         -- (E - B)^-1 if precalculated.
-
+            
+            mx_beta   -- Beta matrix.
+            
+            mx_lambda -- Lambda matrix.
+            
+            mx_psi    -- Psi matrix.
+            
+            mx_theta  -- Theta matrix.
+            
+            m         -- Lambda (E - B)^-1 if precalculated.
+            
+            c         -- (E - B)^-1 if precalculated.
+            
         Returns:
-        Matrix of Sigma 2nd derivatives w.r.t to parameters in order as
-        specified in self.params and self.parameters.
+            
+            Matrix of Sigma 2nd derivatives w.r.t to parameters in order as
+            specified in self.params and self.parameters.
         """
         mx_zero = np.zeros_like(mx_theta)
-        n, m = self.num_params, mx_theta.shape[0]
-        hessian = np.zeros((n, n, m, m))
+        n, k = self.num_params, mx_theta.shape[0]
+        hessian = np.zeros((n, n, k, k))
         m_t = m.T
         c_psi = c @ mx_psi
         c_psi_t = c_psi.T
@@ -390,5 +512,5 @@ class Model(ModelABC):
                 hessian[i, j] = mx_zero
             else:
                 hessian[i, j] = mx_zero
-        hessian += np.triu(hessian, 1).T
+        hessian += np.triu(hessian, 1)
         return hessian

@@ -14,14 +14,17 @@ class StructureAnalyzer(object):
                  use_cv=True):
         """
         Keyword arguments:
-        observed-variables -- A list of observed variables whose
-                              relationships are unclear.
-        model_desc         -- A model description in a valid syntax,
-                              usually assumed to be a measurement part,
-                              but extra information (given caution)
-                              can be provided.
-        data               -- A data.
-        use_cv             -- Use cross-validation.
+            observed-variables -- A list of observed variables whose
+                                  relationships are unclear.
+                                  
+            model_desc         -- A model description in a valid syntax,
+                                  usually assumed to be a measurement part,
+                                  but extra information (given caution)
+                                  can be provided.
+                                  
+            data               -- A data.
+            
+            use_cv             -- Use cross-validation.
         """
         self.observed_vars = observed_variables
         self.model_desc = model_desc
@@ -113,10 +116,12 @@ class StructureAnalyzer(object):
         """Get number of variables present in structural part.
 
         Keyword arguments:
-        opt -- Optimizer with optimized parameters.
+            
+            opt -- Optimizer with optimized parameters.
 
         Returns:
-        Number of variables
+            
+            Number of variables
         """
         n = opt.mx_beta.shape[0]
         for i in range(n):
@@ -131,12 +136,14 @@ class StructureAnalyzer(object):
         """Wraps run method and returns helper structures.
 
         Keyword arguments:
-        print_status -- Whether to print intermediate information on each step.
+            
+            print_status -- Whether to print intermediate information on each step.
 
         Returns:
-        Array of models numbers, MLs of FullModel, mean CV ML, CV MLs, numbers
-        of p-values exceeding set bound, sums of pvalues, numbers of present
-        in variables in structural part, models' descriptions
+            
+            Array of models numbers, MLs of FullModel, mean CV ML, CV MLs, numbers
+            of p-values exceeding set bound, sums of pvalues, numbers of present
+            in variables in structural part, models' descriptions.
         """
         n, lfs, descs = list(), list(), list()
         ml_trns, ml_means, ml_cvs = list(), list(), list()

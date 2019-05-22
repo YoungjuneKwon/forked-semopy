@@ -1,3 +1,4 @@
+'''A temporarily outdated visualization module.'''
 import graphviz as gv
 from .model import Model
 

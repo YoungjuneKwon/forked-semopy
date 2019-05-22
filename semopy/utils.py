@@ -1,37 +1,55 @@
+'''Different utility functions for internal usage.'''
 import scipy.linalg.lapack as lapack
 from pandas import DataFrame
 import numpy as np
 
 
-def cov(x: np.array, bias=True,):
+def cov(x: np.array):
     """Computes covariance matrix taking in account missing values.
-
+    
     Key arguments:
-    x    -- A DataFrame.
-    bias -- Bias.
-
+    
+        x    -- A DataFrame.
+    
     Returns:
-    Covariance matrix.
+    
+        Covariance matrix.
     """
     masked_x = np.ma.array(x, mask=np.isnan(x))
-    return np.ma.cov(masked_x, bias=bias, rowvar=False).data
+    return np.ma.cov(masked_x, bias=True, rowvar=False).data
 
+def cor(x: np.array):
+    """Computes correlation matrix taking in account missing values.
+    
+    Key arguments:
+    
+        x    -- A DataFrame.
+    
+    Returns:
+    
+        Correlation matrix.
+    """
+    masked_x = np.ma.array(x, mask=np.isnan(x))
+    return np.ma.corrcoef(masked_x, bias=True, rowvar=False).data
 
 def chol_inv(x: np.array):
     """Calculates invserse of matrix using Cholesky decomposition.
-
+    
     Keyword arguments:
-    x -- A matrix.
-
+    
+        x -- A matrix.
+    
     Returns:
-    x^-1.
+    
+        x^-1.
     """
     c, info = lapack.dpotrf(x)
     if info:
         raise np.linalg.LinAlgError
     lapack.dpotri(c, overwrite_c=1)
-    return c + np.triu(c, 1).T
-
+    c += c.T
+    np.fill_diagonal(c, c.diagonal() / 2)
+    return c
 
 def get_cv_data_ann_kfold(data, k=4, iteration=1, shuffle=True):
     if shuffle:
@@ -55,7 +73,7 @@ def get_cv_data_kfold(data, k=4, iteration=1, shuffle=False):
     chunk_size = data.shape[0] // k
     a = iteration * chunk_size
     b = a + chunk_size
-    inds_training = np.r_[:a, b:]
+    inds_training = np.r_[0:a, b:data.shape[0]]
     inds_testing = np.r_[a:b]
     if isinstance(data, DataFrame):
         training_set = data.loc[inds_training]

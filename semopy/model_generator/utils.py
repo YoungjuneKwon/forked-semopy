@@ -3,19 +3,21 @@ from itertools import islice
 
 
 class ThreadsManager:
-    '''
-A helper class used to keep track of different threads in graph.
-Needed to build cycles if neccessary.
+    '''A helper class used to keep track of different threads in graph. Needed
+    to build cycles if neccessary.
     '''
     def __init__(self, dicts=list()):
         self.threads = list()
         for d in dicts:
             self.load_from_dict(d)
 
-    def load_from_dict(self, d: dict):
+    def load_from_dict(self, d: dict, reverse=False):
         for a, to_nodes in d.items():
             for b in to_nodes:
-                self.connect_nodes(a, b)
+                if not reverse:
+                    self.connect_nodes(a, b)
+                else:
+                    self.connect_nodes(b, a)
 
     def add_node(self, node: str):
         for thread in self.find_threads(node):

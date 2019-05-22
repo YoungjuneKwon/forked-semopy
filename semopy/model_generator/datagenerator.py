@@ -1,3 +1,5 @@
+'''The module contains methods for generating a data for a given model.'''
+
 from .utils import get_tuple_index, ThreadsManager
 from numpy.random import normal, uniform
 from functools import partial
@@ -14,23 +16,33 @@ def generate_data(mpart: dict, spart: dict, mpart_params: dict,
                   mpart_generator=DEFAULT_NORMAL,
                   spart_generator=DEFAULT_NORMAL,
                   error_generator=DEFAULT_ERROR):
-    '''
-Generates a datasample given the model and it's parameters.
-Keyword arguments:
-    mpart           -- A measurement part.
-    spart           -- A structural part.
-    params_mpart    -- Measurement part parameters.
-    params_spart    -- Structural part parameters.
-    num_rows        -- Number of samples in a dataset to be generated.
-    threads         -- An auxilary object produced by generate_structural_part.
-    mpart_generator -- A function f(shape) that is used to randomly generate
-                       data for measurement part.
-    spart_generator -- A function f(shape) that is used to randomly generate
-                       data for structural part.
-    error_generator -- A function f(shape) that is used to randomly generate
-                       errors for data.
-Returns:
-    A dataframe table.
+    '''Generates a datasample given the model and it's parameters.
+    
+    Keyword arguments:
+        mpart           -- A measurement part.
+        
+        spart           -- A structural part.
+        
+        params_mpart    -- Measurement part parameters.
+        
+        params_spart    -- Structural part parameters.
+        
+        num_rows        -- Number of samples in a dataset to be generated.
+        
+        threads         -- An auxilary object produced by generate_structural_part.
+        
+        mpart_generator -- A function f(shape) that is used to randomly generate
+                           data for measurement part.
+                           
+        spart_generator -- A function f(shape) that is used to randomly generate
+                           data for structural part.
+                           
+        error_generator -- A function f(shape) that is used to randomly generate
+                           errors for data.
+                           
+    Returns:
+        
+        A dataframe table.
     '''
     latents = set(mpart.keys())
     indicators = {ind for lv in latents for ind in mpart[lv]}
@@ -39,6 +51,9 @@ Returns:
     exogenous = out_arrows - in_arrows
     spart_vars = in_arrows | out_arrows
     variables = indicators | spart_vars
+    if threads is None:
+        threads = ThreadsManager()
+        threads.load_from_dict(spart, True)
     threads.load_from_dict(mpart)
     data = DataFrame(0.0, index=range(num_rows),
                      columns=sorted(list(variables)))
