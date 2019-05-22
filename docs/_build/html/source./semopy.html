@@ -1,0 +1,1915 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>semopy package &#8212; semopy 1.1.16 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="semopy-package">
+<h1>semopy package<a class="headerlink" href="#semopy-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="semopy.model_generator.html">semopy.model_generator package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator.datagenerator">semopy.model_generator.datagenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator.generator">semopy.model_generator.generator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator.paramgenerator">semopy.model_generator.paramgenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator.structgenerator">semopy.model_generator.structgenerator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator.utils">semopy.model_generator.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="semopy.model_generator.html#module-semopy.model_generator">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-semopy.example">
+<span id="semopy-example-module"></span><h2>semopy.example module<a class="headerlink" href="#module-semopy.example" title="Permalink to this headline">¶</a></h2>
+<p>An example model from the paper.
+get_model() retrieves a string description of the model,
+get_data() retrieves a pandas dataframe with data for the model.</p>
+<dl class="function">
+<dt id="semopy.example.get_data">
+<code class="descclassname">semopy.example.</code><code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.example.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a data for the model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.example.get_model">
+<code class="descclassname">semopy.example.</code><code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.example.get_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string with the model’s description.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.full_model">
+<span id="semopy-full-model-module"></span><h2>semopy.full_model module<a class="headerlink" href="#module-semopy.full_model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="semopy.full_model.FullModel">
+<em class="property">class </em><code class="descclassname">semopy.full_model.</code><code class="descname">FullModel</code><span class="sig-paren">(</span><em>variable_names: list</em>, <em>model_description: str</em>, <em>ignored_params={}</em>, <em>fix_theta=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.full_model.FullModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#semopy.model.Model" title="semopy.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">semopy.model.Model</span></code></a></p>
+<p>FullModel is a model that assumes all variables (except indicators)
+to be connected to each other.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>variable_names    – names of observed variables from Beta matrix.</p>
+<dl class="simple">
+<dt>model_description – description of model (optionally empty),</dt><dd><p>assumed to be description of measurement part.</p>
+</dd>
+</dl>
+<p>fix_theta         – Assume Theta to be an identity block matrix.</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.inspector">
+<span id="semopy-inspector-module"></span><h2>semopy.inspector module<a class="headerlink" href="#module-semopy.inspector" title="Permalink to this headline">¶</a></h2>
+<p>Inspector module is responsible for providing a user information on
+parameters’ estimatees in a friendly manner.</p>
+<dl class="function">
+<dt id="semopy.inspector.inspect">
+<code class="descclassname">semopy.inspector.</code><code class="descname">inspect</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>mode='mx'</em>, <em>what='est'</em>, <em>output=&lt;_io.TextIOWrapper name='&lt;stdout&gt;' mode='w' encoding='UTF-8'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.inspector.inspect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Outputs all the information available given SEM optimizer with
+appropriate parameters.</p>
+<dl>
+<dt>Keyword arguments:</dt><dd><p>opt     – SEM Optimizer.</p>
+<dl class="simple">
+<dt>mode    – ‘mx’ or ‘list’, inspect prints matrices or list of operations</dt><dd><p>retrieved by inspect_list.</p>
+</dd>
+<dt>what    – ‘est’ or ‘start’, if ‘est’ then estimated parameters are</dt><dd><p>applied, if ‘start’ then starting parameters are applied.</p>
+</dd>
+</dl>
+<p>output  – Output stream.</p>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><p>A list of of pairs (matrix_name, df matrix) if mode equals ‘mx’ or
+pandas DataFrame containing operations if mode==’list’.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.inspector.inspect_list">
+<code class="descclassname">semopy.inspector.</code><code class="descname">inspect_list</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.inspector.inspect_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a DataFrame table containing all parameters in models in a
+clear, readable from. Statistics provided as well.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – A SEM optimizer.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Pandas’ DataFrame.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.inspector.inspector_get_mx">
+<code class="descclassname">semopy.inspector.</code><code class="descname">inspector_get_mx</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>mx_name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.inspector.inspector_get_mx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get matrix as a DataFrame.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt     – SEM Optimizer.</p>
+<p>mx_name – Matrix’s name.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Pandas DataFrame.</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model">
+<span id="semopy-model-module"></span><h2>semopy.model module<a class="headerlink" href="#module-semopy.model" title="Permalink to this headline">¶</a></h2>
+<p>This module contains Model class that is used a “meat and bones” of a SEM
+model.</p>
+<dl class="class">
+<dt id="semopy.model.Model">
+<em class="property">class </em><code class="descclassname">semopy.model.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>model_description: str</em>, <em>description=None</em>, <em>force_load={}</em>, <em>baseline=False</em>, <em>psi_mode='Full'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#semopy.model_abstract.ModelABC" title="semopy.model_abstract.ModelABC"><code class="xref py py-class docutils literal notranslate"><span class="pre">semopy.model_abstract.ModelABC</span></code></a></p>
+<p>Model is responsible for building a mathematical backbone of the
+SEM-model given a textual (string) description and setting up initial
+values from data.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>model_description – A text description of model in semopy syntax.</p>
+<dl class="simple">
+<dt>description       – A description in a dictionary form as returned</dt><dd><p>by Parser.</p>
+</dd>
+<dt>force_load        – A set of variables that may not be present in</dt><dd><p>the description, yet should be represented in
+a model at least as isolated exogenous
+variables.</p>
+</dd>
+<dt>baseline          – Should model be initialized in a baseline mode</dt><dd><dl class="simple">
+<dt>(all parameters in Beta and Lambda are</dt><dd><p>fixed and set to 0 and 1 respectively).</p>
+</dd>
+</dl>
+</dd>
+<dt>psi_mode          – “Full” for default Psi matrix.</dt><dd><p>“Diag” for default Psi matrix with zero
+covariances.
+“DiagFixed” for Psi matrix with all diagonal
+elements fixed to their sample values.
+“DiagParam” for Psi matrix with all diagonal
+elements used as parameters.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="semopy.model.Model.apply_parameters">
+<code class="descname">apply_parameters</code><span class="sig-paren">(</span><em>params: numpy.array</em>, <em>mx_beta: numpy.array</em>, <em>mx_lambda: numpy.array</em>, <em>mx_psi: numpy.array</em>, <em>mx_theta: numpy.array</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.apply_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.build_beta">
+<code class="descname">build_beta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.build_beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up a zero Beta matrix using info on classified variables.</p>
+<p>Returns:</p>
+<blockquote>
+<div><p>A zero Beta matrix and a tuple of correspondin rows and columns
+names.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.build_lambda">
+<code class="descname">build_lambda</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.build_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up a zero Lambda matrix using info on classified variables.</p>
+<p>Returns:</p>
+<p>A zero Lambda matrix and a tuple of correspondin rows and columns
+names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.build_psi">
+<code class="descname">build_psi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.build_psi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up a zero Psi matrix using info on classified variables.</p>
+<p>Returns:</p>
+<blockquote>
+<div><p>A zero Psi matrix and a tuple of correspondin rows and columns
+names.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.build_theta">
+<code class="descname">build_theta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.build_theta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up a zero Theta matrix using info on classified variables.</p>
+<p>Returns:</p>
+<blockquote>
+<div><p>A zero Theta matrix and a tuple of correspondin rows and columns
+names.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.calculate_sigma">
+<code class="descname">calculate_sigma</code><span class="sig-paren">(</span><em>mx_beta</em>, <em>mx_lambda</em>, <em>mx_psi</em>, <em>mx_theta</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.calculate_sigma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Sigma matrix.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>mx_beta   – Beta matrix.</p>
+<p>mx_lambda – Lambda matrix.</p>
+<p>mx_psi    – Psi matrix.</p>
+<p>mx_theta  – Theta matrix.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Sigma matrix and pair (Lambda (E - B)^-1, (E - B)^-1) for auxilary
+purposes.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.calculate_sigma_gradient">
+<code class="descname">calculate_sigma_gradient</code><span class="sig-paren">(</span><em>mx_beta</em>, <em>mx_lambda</em>, <em>mx_psi</em>, <em>mx_theta</em>, <em>m=None</em>, <em>c=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.calculate_sigma_gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Sigma matrix gradient.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>mx_beta   – Beta matrix.</p>
+<p>mx_lambda – Lambda matrix.</p>
+<p>mx_psi    – Psi matrix.</p>
+<p>mx_theta  – Theta matrix.</p>
+<p>m         – Lambda (E - B)^-1 if precalculated.</p>
+<p>c         – (E - B)^-1 if precalculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>List of Sigma derivatives w.r.t to parameters in order as specified
+in self.params and self.parameters.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.calculate_sigma_hessian">
+<code class="descname">calculate_sigma_hessian</code><span class="sig-paren">(</span><em>mx_beta</em>, <em>mx_lambda</em>, <em>mx_psi</em>, <em>mx_theta</em>, <em>m</em>, <em>c</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.calculate_sigma_hessian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Sigma matrix hessian.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>mx_beta   – Beta matrix.</p>
+<p>mx_lambda – Lambda matrix.</p>
+<p>mx_psi    – Psi matrix.</p>
+<p>mx_theta  – Theta matrix.</p>
+<p>m         – Lambda (E - B)^-1 if precalculated.</p>
+<p>c         – (E - B)^-1 if precalculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Matrix of Sigma 2nd derivatives w.r.t to parameters in order as
+specified in self.params and self.parameters.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.get_bounds">
+<code class="descname">get_bounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.get_bounds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.load_dataset">
+<code class="descname">load_dataset</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>center=True</em>, <em>ordcor=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads dataset and applies starting values.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data   – A Pandas’ DataFrame containing data.</p>
+<dl class="simple">
+<dt>center – Center data taking in account categorical variables</dt><dd><p>if ordcor is True.</p>
+</dd>
+<dt>ordcor – Whether to use compute a heterogenous correlation matrix</dt><dd><p>instead of covariance matrix if categorical variables are
+present. If iterable, then elements in ordcor are assumed
+to be ordinal and no ordinality tests are run.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.parse_operation">
+<code class="descname">parse_operation</code><span class="sig-paren">(</span><em>op</em>, <em>lvalue</em>, <em>rvalue</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.parse_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a parameter or performs necessary operations given opcode.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>op     – An operation’s code.</p>
+<p>lvalue – A left value.</p>
+<p>rvalue – A right value.</p>
+<p>args   – Arguments of the operation.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.postprocess_parameters">
+<code class="descname">postprocess_parameters</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>cov: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.postprocess_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a fast-to-use array of parameters.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data – A dataframe with sample data.</p>
+<p>cov  – A variance-covariance matrix.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.prepare_diff_matrices">
+<code class="descname">prepare_diff_matrices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.prepare_diff_matrices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds derivatives of each of matricies.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model.Model.prepare_parameters">
+<code class="descname">prepare_parameters</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model.Model.prepare_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dict of parameters and performns necessary initial
+operations over model.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>description – A structure returned by Parser.</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_abstract">
+<span id="semopy-model-abstract-module"></span><h2>semopy.model_abstract module<a class="headerlink" href="#module-semopy.model_abstract" title="Permalink to this headline">¶</a></h2>
+<p>This module contains class ModelABC that is used as a parent for all other
+Models in semopy.
+It is intended for internal usage only.</p>
+<dl class="class">
+<dt id="semopy.model_abstract.ModelABC">
+<em class="property">class </em><code class="descclassname">semopy.model_abstract.</code><code class="descname">ModelABC</code><span class="sig-paren">(</span><em>model_description: str</em>, <em>description=None</em>, <em>force_load={}</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>An abstract class that implements basic Model functionality and used as
+a parent for all other models in semopy.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>model_description – A string containing SEM model description in</dt><dd><p>a valid syntax.</p>
+</dd>
+<dt>description       – A parsed model_description in the form returned by</dt><dd><p>Parser.parse().</p>
+</dd>
+<dt>force_load        – Observed variables that may not be necessary</dt><dd><p>provided in description yet must be taken in
+account.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="semopy.model_abstract.ModelABC.classify_variables">
+<code class="descname">classify_variables</code><span class="sig-paren">(</span><em>description</em>, <em>force_load={}</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC.classify_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies variables and performns necessary initial operations over
+model.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>description – A dictionary structure returned by Parser.parse().
+force_load  – Observed variables that may not be necessary</p>
+<blockquote>
+<div><p>provided in description yet must be taken in
+account.</p>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_abstract.ModelABC.load_dataset">
+<code class="descname">load_dataset</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>center=True</em>, <em>ordcor=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads dataset and applies starting values.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data   – A Pandas’ DataFrame containing data.</p>
+<dl class="simple">
+<dt>center – Center data taking in account categorical variables</dt><dd><p>if ordcor is True.</p>
+</dd>
+<dt>ordcor – Whether to use compute a heterogenous correlation matrix</dt><dd><p>instead of covariance matrix if categorical variables are
+present. If iterable, then elements in ordcor are assumed
+to be ordinal and no ordinality tests are run.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_abstract.ModelABC.operations">
+<code class="descname">operations</code><a class="headerlink" href="#semopy.model_abstract.ModelABC.operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#semopy.model_abstract.SEMOperations" title="semopy.model_abstract.SEMOperations"><code class="xref py py-class docutils literal notranslate"><span class="pre">SEMOperations</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_abstract.ModelABC.parse_operation">
+<code class="descname">parse_operation</code><span class="sig-paren">(</span><em>op</em>, <em>lvalue</em>, <em>rvalue</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC.parse_operation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a parameter or performs necessary operations given opcode.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>op     – An operation’s code.</p>
+<p>lvalue – A left value.</p>
+<p>rvalue – A right value.</p>
+<p>args   – Arguments of the operation.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_abstract.ModelABC.prepare_parameters">
+<code class="descname">prepare_parameters</code><span class="sig-paren">(</span><em>description</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC.prepare_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a dict of parameters and performns necessary initial
+operations over model.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>description – A structure returned by Parser.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_abstract.ModelABC.process_description">
+<code class="descname">process_description</code><span class="sig-paren">(</span><em>description</em>, <em>force_load={}</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_abstract.ModelABC.process_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies variables and performns necessary initial operations over
+model.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>description – A dictionary structure returned by Parser.parse().</p>
+<dl class="simple">
+<dt>force_load  – Observed variables that may not be necessary</dt><dd><p>provided in description yet must be taken in
+account.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.model_abstract.SEMOperations">
+<em class="property">class </em><code class="descclassname">semopy.model_abstract.</code><code class="descname">SEMOperations</code><a class="headerlink" href="#semopy.model_abstract.SEMOperations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="semopy.model_abstract.SEMOperations.COVARIANCE">
+<code class="descname">COVARIANCE</code><em class="property"> = '~~'</em><a class="headerlink" href="#semopy.model_abstract.SEMOperations.COVARIANCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_abstract.SEMOperations.MEASUREMENT">
+<code class="descname">MEASUREMENT</code><em class="property"> = '=~'</em><a class="headerlink" href="#semopy.model_abstract.SEMOperations.MEASUREMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_abstract.SEMOperations.REGRESSION">
+<code class="descname">REGRESSION</code><em class="property"> = '~'</em><a class="headerlink" href="#semopy.model_abstract.SEMOperations.REGRESSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_abstract.SEMOperations.TYPE">
+<code class="descname">TYPE</code><em class="property"> = 'is'</em><a class="headerlink" href="#semopy.model_abstract.SEMOperations.TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_nl">
+<span id="semopy-model-nl-module"></span><h2>semopy.model_nl module<a class="headerlink" href="#module-semopy.model_nl" title="Permalink to this headline">¶</a></h2>
+<p>This module contains a WIP-version of nonlinear SEM model.</p>
+<dl class="class">
+<dt id="semopy.model_nl.ModelNL">
+<em class="property">class </em><code class="descclassname">semopy.model_nl.</code><code class="descname">ModelNL</code><span class="sig-paren">(</span><em>model_description: str</em>, <em>description=None</em>, <em>force_load={}</em>, <em>baseline=False</em>, <em>psi_mode='Full'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_nl.ModelNL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#semopy.model.Model" title="semopy.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">semopy.model.Model</span></code></a></p>
+<dl class="method">
+<dt id="semopy.model_nl.ModelNL.classify_variables">
+<code class="descname">classify_variables</code><span class="sig-paren">(</span><em>description</em>, <em>force_load={}</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_nl.ModelNL.classify_variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies variables and performns necessary initial operations over
+model.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>description – A dictionary structure returned by Parser.parse().</p>
+<dl class="simple">
+<dt>force_load  – Observed variables that may not be necessary</dt><dd><p>provided in description yet must be taken in
+account.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_nl.ModelNL.load_dataset">
+<code class="descname">load_dataset</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em>, <em>center=True</em>, <em>ordcor=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_nl.ModelNL.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads dataset and applies starting values.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data   – A Pandas’ DataFrame containing data.</p>
+<dl class="simple">
+<dt>center – Center data taking in account categorical variables</dt><dd><p>if ordcor is True.</p>
+</dd>
+<dt>ordcor – Whether to use compute a heterogenous correlation matrix</dt><dd><p>instead of covariance matrix if categorical variables are
+present.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_nl.ModelNL.operations">
+<code class="descname">operations</code><a class="headerlink" href="#semopy.model_nl.ModelNL.operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#semopy.model_nl.SEMOperationsNL" title="semopy.model_nl.SEMOperationsNL"><code class="xref py py-class docutils literal notranslate"><span class="pre">SEMOperationsNL</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_nl.ModelNL.process_description">
+<code class="descname">process_description</code><span class="sig-paren">(</span><em>description</em>, <em>force_load={}</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_nl.ModelNL.process_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies variables and performns necessary initial operations over
+model.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>description – A dictionary structure returned by Parser.parse().</p>
+<dl class="simple">
+<dt>force_load  – Observed variables that may not be necessary</dt><dd><p>provided in description yet must be taken in
+account.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.model_nl.SEMOperationsNL">
+<em class="property">class </em><code class="descclassname">semopy.model_nl.</code><code class="descname">SEMOperationsNL</code><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="semopy.model_nl.SEMOperationsNL.COVARIANCE">
+<code class="descname">COVARIANCE</code><em class="property"> = '~~'</em><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL.COVARIANCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_nl.SEMOperationsNL.MEASUREMENT">
+<code class="descname">MEASUREMENT</code><em class="property"> = '=~'</em><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL.MEASUREMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_nl.SEMOperationsNL.NLREGRESSION">
+<code class="descname">NLREGRESSION</code><em class="property"> = '&#64;~'</em><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL.NLREGRESSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_nl.SEMOperationsNL.REGRESSION">
+<code class="descname">REGRESSION</code><em class="property"> = '~'</em><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL.REGRESSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.model_nl.SEMOperationsNL.TYPE">
+<code class="descname">TYPE</code><em class="property"> = 'is'</em><a class="headerlink" href="#semopy.model_nl.SEMOperationsNL.TYPE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.optimizer">
+<span id="semopy-optimizer-module"></span><h2>semopy.optimizer module<a class="headerlink" href="#module-semopy.optimizer" title="Permalink to this headline">¶</a></h2>
+<p>Optimizer is utilised for fitting models’ parameters to a given objective function.</p>
+<dl class="class">
+<dt id="semopy.optimizer.Optimizer">
+<em class="property">class </em><code class="descclassname">semopy.optimizer.</code><code class="descname">Optimizer</code><span class="sig-paren">(</span><em>mod: semopy.model.Model</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Optimizer class is responsible for estimating a given model’s parameters.</p>
+<p>Keywrod arguments:</p>
+<blockquote>
+<div><p>mod – A SEM Model.</p>
+</div></blockquote>
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.apply_degeneracy">
+<code class="descname">apply_degeneracy</code><span class="sig-paren">(</span><em>degenerate_vars: list</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.apply_degeneracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes degenerate_vars from final Sigma computations in both
+get_sigma() and get_sigma_grad().</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>degenerate_vars – A list of observed variables to exclude from</dt><dd><p>both empirical and model-induced covariance
+matrices.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.compose_diff_function">
+<code class="descname">compose_diff_function</code><span class="sig-paren">(</span><em>method: str</em>, <em>hess=False</em>, <em>regu=None</em>, <em>a=1.0</em>, <em>paramsToPen=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.compose_diff_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds a gradient or a hessian function if possible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.compose_loss_function">
+<code class="descname">compose_loss_function</code><span class="sig-paren">(</span><em>method: str</em>, <em>regularization=None</em>, <em>params_to_pen=None</em>, <em>a=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.compose_loss_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a loss function.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>method         – a name of an optimization technique to apply.</p>
+<p>regularization – a name of regularizatio technique to apply.</p>
+<dl class="simple">
+<dt>params_to_pen  – indicies of parameters from params’ vector to</dt><dd><p>penalize. If None, then all params are penalized.</p>
+</dd>
+</dl>
+<p>a              – a regularization multiplier.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>(Loss function, obj_func, a * regularization, gradient of loss
+function, hessian of loss function)
+Loss function = obj_func + a * regularization</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.general_least_squares">
+<code class="descname">general_least_squares</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.general_least_squares" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_degenerate_sigma">
+<code class="descname">get_degenerate_sigma</code><span class="sig-paren">(</span><em>exclude: list</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_degenerate_sigma" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_degenerate_sigma_grad">
+<code class="descname">get_degenerate_sigma_grad</code><span class="sig-paren">(</span><em>m</em>, <em>c</em>, <em>exclude: list</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_degenerate_sigma_grad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_gradient_function">
+<code class="descname">get_gradient_function</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_gradient_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_hessian_function">
+<code class="descname">get_hessian_function</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_hessian_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_obj_function">
+<code class="descname">get_obj_function</code><span class="sig-paren">(</span><em>name: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_obj_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.get_regularization">
+<code class="descname">get_regularization</code><span class="sig-paren">(</span><em>name: str</em>, <em>params_to_pen: list</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.get_regularization" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.gls_gradient">
+<code class="descname">gls_gradient</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.gls_gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.load_dataset">
+<code class="descname">load_dataset</code><span class="sig-paren">(</span><em>data: pandas.core.frame.DataFrame</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Loads a dataset in case if Model.load_dataset hasn’t been called</dt><dd><p>yet.</p>
+</dd>
+</dl>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data – A pandas’ DataFrame.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.load_empirical_data">
+<code class="descname">load_empirical_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.load_empirical_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.minimize_adam">
+<code class="descname">minimize_adam</code><span class="sig-paren">(</span><em>lf</em>, <em>grad</em>, <em>x0</em>, <em>step=1.0</em>, <em>beta1=0.9</em>, <em>beta2=0.999</em>, <em>chunk_size=None</em>, <em>num_epochs=1000</em>, <em>memory=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.minimize_adam" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.minimize_momentum">
+<code class="descname">minimize_momentum</code><span class="sig-paren">(</span><em>lf</em>, <em>grad</em>, <em>x0</em>, <em>step=0.002</em>, <em>resistance=0.9</em>, <em>num_epochs=200</em>, <em>chunk_size=None</em>, <em>memory=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.minimize_momentum" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.minimize_nesterov">
+<code class="descname">minimize_nesterov</code><span class="sig-paren">(</span><em>lf</em>, <em>grad</em>, <em>x0</em>, <em>step=0.002</em>, <em>resistance=0.9</em>, <em>num_epochs=200</em>, <em>chunk_size=None</em>, <em>memory=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.minimize_nesterov" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.minimize_sgd">
+<code class="descname">minimize_sgd</code><span class="sig-paren">(</span><em>lf</em>, <em>grad</em>, <em>x0</em>, <em>step=0.5</em>, <em>num_epochs=100</em>, <em>chunk_size=None</em>, <em>memory=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.minimize_sgd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.ml_wishart">
+<code class="descname">ml_wishart</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.ml_wishart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes wishart likelihood ratio.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>params – a parameters values’ vector.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>MLR, nan if failed to compute at (.)params.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.ml_wishart_gradient">
+<code class="descname">ml_wishart_gradient</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.ml_wishart_gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.ml_wishart_hessian">
+<code class="descname">ml_wishart_hessian</code><span class="sig-paren">(</span><em>params</em>, <em>fortranize=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.ml_wishart_hessian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.optimize">
+<code class="descname">optimize</code><span class="sig-paren">(</span><em>objective='MLW'</em>, <em>regu=None</em>, <em>a=1.0</em>, <em>params_to_pen=[]</em>, <em>method='SLSQP'</em>, <em>bounds=True</em>, <em>**args</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimize model.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>objective       – Name of objective function to minimize, i.e.</dt><dd><p>“MLW”, “ULS”, “GLS”, et cetera.</p>
+</dd>
+<dt>regu            – A name of regularization to apply</dt><dd><p>(“l1”, “l2”, None).</p>
+</dd>
+</dl>
+<p>a               – A regularization multiplier.</p>
+<p>params_to_pen   – A list of indices of params to be penalized.</p>
+<dl class="simple">
+<dt>method          – Name of an optimization technique to apply, i.e.</dt><dd><p>“SLSQP”, “Adam”, “SMSNO”.</p>
+</dd>
+<dt>bounds          – Whether to use bound constraints if an optimizer</dt><dd><p>supports it. “True” if use default model bounds,
+“False” or “None” for no bounds, list of
+(a, b) tuples for custom bounds.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Objective function value and regularization function value (if regu
+is not None).</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.regu_l1">
+<code class="descname">regu_l1</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.regu_l1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.regu_l1_gradient">
+<code class="descname">regu_l1_gradient</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.regu_l1_gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.regu_l2">
+<code class="descname">regu_l2</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.regu_l2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.regu_l2_gradient">
+<code class="descname">regu_l2_gradient</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.regu_l2_gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.regu_l2_hessian">
+<code class="descname">regu_l2_hessian</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.regu_l2_hessian" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.turn_mx_degenerate">
+<code class="descname">turn_mx_degenerate</code><span class="sig-paren">(</span><em>mx</em>, <em>exclude</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.turn_mx_degenerate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.uls_gradient">
+<code class="descname">uls_gradient</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.uls_gradient" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.optimizer.Optimizer.unweighted_least_squares">
+<code class="descname">unweighted_least_squares</code><span class="sig-paren">(</span><em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.optimizer.Optimizer.unweighted_least_squares" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.parser">
+<span id="semopy-parser-module"></span><h2>semopy.parser module<a class="headerlink" href="#module-semopy.parser" title="Permalink to this headline">¶</a></h2>
+<p>This module contains a Parser class that is used to parse a semopy syntax.</p>
+<dl class="class">
+<dt id="semopy.parser.ExampleOperations">
+<em class="property">class </em><code class="descclassname">semopy.parser.</code><code class="descname">ExampleOperations</code><a class="headerlink" href="#semopy.parser.ExampleOperations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="semopy.parser.ExampleOperations.MEASUREMENT">
+<code class="descname">MEASUREMENT</code><em class="property"> = '=~'</em><a class="headerlink" href="#semopy.parser.ExampleOperations.MEASUREMENT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.parser.ExampleOperations.REGRESSION">
+<code class="descname">REGRESSION</code><em class="property"> = '~'</em><a class="headerlink" href="#semopy.parser.ExampleOperations.REGRESSION" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.parser.Parser">
+<em class="property">class </em><code class="descclassname">semopy.parser.</code><code class="descname">Parser</code><span class="sig-paren">(</span><em>operations=&lt;enum 'ExampleOperations'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.parser.Parser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parser is responsible for parsing a semopy syntax.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>operations – An Enum containing operation names and their respective</dt><dd><p>symbols.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="method">
+<dt id="semopy.parser.Parser.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><em>string: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.parser.Parser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Parses a SEM model description provided in a appropirate syntax.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>string – A model’s description.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>A dictionary in the form of:</dt><dd><p>lvalue -&gt; TypeOfOperation -&gt; rvalue -&gt; ListOfExtraParameters</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.parser.Parser.s_pattern">
+<code class="descname">s_pattern</code><em class="property"> = '\\b(\\S+(?:\\s*\\,\\s*\\S+)*)\\s*({})\\s*(\\S+(?:\\s*(?:\\+|\\*)\\s*\\S+)*)\\b'</em><a class="headerlink" href="#semopy.parser.Parser.s_pattern" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.political_democracy">
+<span id="semopy-political-democracy-module"></span><h2>semopy.political_democracy module<a class="headerlink" href="#module-semopy.political_democracy" title="Permalink to this headline">¶</a></h2>
+<p>A PoliticalDemocracy model and dataset.
+get_model() retrieves a string description of the model,
+get_data() retrieves a pandas dataframe with data for the model.</p>
+<dl class="function">
+<dt id="semopy.political_democracy.get_data">
+<code class="descclassname">semopy.political_democracy.</code><code class="descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.political_democracy.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a data for the model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.political_democracy.get_model">
+<code class="descclassname">semopy.political_democracy.</code><code class="descname">get_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.political_democracy.get_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string with description of the model.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.polycorr">
+<span id="semopy-polycorr-module"></span><h2>semopy.polycorr module<a class="headerlink" href="#module-semopy.polycorr" title="Permalink to this headline">¶</a></h2>
+<p>This module implements polychoric and polyserial correlations. It is assumed
+for internal usage only.</p>
+<dl class="function">
+<dt id="semopy.polycorr.bivariate_cdf">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">bivariate_cdf</code><span class="sig-paren">(</span><em>lower, upper, corr, means=[0, 0], var=[1, 1]</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.bivariate_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates an integral of bivariate pdf given integration lower and 
+upper limits. Consider using relatively big (i.e. 20 if using default mean
+and variance) lower and/or upper bounds when integrating to/from infinity.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>lower – Lower integration bounds.</p>
+<p>upper – Upper integration bounds.</p>
+<p>corr  – Correlation coefficient between variables.</p>
+<p>means – Mean values of variables (assumed to be [0, 0] by default).</p>
+<p>var   – Variances of variables (assumed to be [1, 1] by default).</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>P(lower[0] &lt; x &lt; upper[0], lower[1] &lt; y &lt; upper[1]).</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.polycorr.estimate_intervals">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">estimate_intervals</code><span class="sig-paren">(</span><em>x</em>, <em>inf=10</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.estimate_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates intervals of the polytomized underlying latent variable.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>x   – An array of values the ordinal variable.</p>
+<p>inf – A numerical infinity substitute (10 by default).</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>An array containing polytomy intervals and an array containing indices
+of intervals correspoding to each entry in x.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.polycorr.hetcor">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">hetcor</code><span class="sig-paren">(</span><em>data</em>, <em>ords=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.hetcor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a heterogenous correlation matrix.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>data – Either a pandas DataFrame or a numpy matrix of sample data.</p>
+<dl class="simple">
+<dt>ords – Names of ordinal variables if data is DataFrame or indices of</dt><dd><p>ordinal numbers if data is np.array. If ords are None (default)
+then ordinary variables will be determined automatically.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A heterogenous correlation matrix.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.polycorr.polychoric_corr">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">polychoric_corr</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>x_ints=None</em>, <em>y_ints=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.polychoric_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates polyserial correlation between ordinal variables x and y.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>x      – Data sample corresponding to x.</p>
+<p>y      – Data sample corresponding to y.</p>
+<dl class="simple">
+<dt>x_ints – Polytomic intervals of an underlying latent variable</dt><dd><p>correspoding to y (calculated if not provided) as returned
+by estimate_intervals.</p>
+</dd>
+<dt>y_ints – Polytomic intervals of an underlying latent variable</dt><dd><p>correspoding to y (calculated if not provided) as returned
+by estimate_intervals.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A polychoric correlation coefficient for x and y.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.polycorr.polyserial_corr">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">polyserial_corr</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>x_mean=None</em>, <em>x_var=None</em>, <em>x_z=None</em>, <em>x_pdfs=None</em>, <em>y_ints=None</em>, <em>scalar=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.polyserial_corr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates polyserial correlation between continious variable x and
+ordinal variable y.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>x – Data sample corresponding to x.</p>
+<p>y – Data sample corresponding to y.</p>
+<p>x_mean – A mean value of x (calculated if not provided).</p>
+<p>x_var  – A variance of x (calculated if not provided).</p>
+<p>x_z    – A standartized x (calculated if not provided).</p>
+<p>x_pdfs – x’s logpdf sampled at each point.</p>
+<dl class="simple">
+<dt>y_ints – Polytomic intervals of an underlying latent variable</dt><dd><p>correspoding to y (calculated if not provided) as returned
+by estimate_intervals.</p>
+</dd>
+</dl>
+<p>scalar – If true minimize_scalar is used instead of SLSQP.
+.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A polyserial correlation coefficient for x and y.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.polycorr.univariate_cdf">
+<code class="descclassname">semopy.polycorr.</code><code class="descname">univariate_cdf</code><span class="sig-paren">(</span><em>lower</em>, <em>upper</em>, <em>mean=0</em>, <em>var=1</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.polycorr.univariate_cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates an integral of univariate pdf given integration lower and 
+upper limits. Consider using relatively big (i.e. 20 if using default mean
+and variance) lower and/or upper bounds when integrating to/from infinity.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>lower – Lower integration bound.</p>
+<p>upper – Upper integration bound.</p>
+<p>mean – Mean value of variable (assumed to be 0 by default).</p>
+<p>var  – Variance of variable (assumed to be 1 by default).</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>P(lower &lt; x &lt; upper).</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.regsem">
+<span id="semopy-regsem-module"></span><h2>semopy.regsem module<a class="headerlink" href="#module-semopy.regsem" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="semopy.regsem.StructureAnalyzer">
+<em class="property">class </em><code class="descclassname">semopy.regsem.</code><code class="descname">StructureAnalyzer</code><span class="sig-paren">(</span><em>observed_variables: list</em>, <em>model_desc: str</em>, <em>data</em>, <em>use_cv=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.analyze">
+<code class="descname">analyze</code><span class="sig-paren">(</span><em>print_status=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wraps run method and returns helper structures.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>print_status – Whether to print intermediate information on each step.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Array of models numbers, MLs of FullModel, mean CV ML, CV MLs, numbers
+of p-values exceeding set bound, sums of pvalues, numbers of present
+in variables in structural part, models’ descriptions.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.get_least_significant_param">
+<code class="descname">get_least_significant_param</code><span class="sig-paren">(</span><em>pvalues</em>, <em>params_to_pen</em>, <em>model</em>, <em>opt</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.get_least_significant_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.get_model">
+<code class="descname">get_model</code><span class="sig-paren">(</span><em>params_to_ignore</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.get_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.get_model_description">
+<code class="descname">get_model_description</code><span class="sig-paren">(</span><em>model</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.get_model_description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.get_num_components_connected">
+<code class="descname">get_num_components_connected</code><span class="sig-paren">(</span><em>opt</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.get_num_components_connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get number of variables present in structural part.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer with optimized parameters.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Number of variables</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.get_num_pvals">
+<code class="descname">get_num_pvals</code><span class="sig-paren">(</span><em>opt</em>, <em>pvals</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.get_num_pvals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.regsem.StructureAnalyzer.test_model_cv">
+<code class="descname">test_model_cv</code><span class="sig-paren">(</span><em>mod</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.StructureAnalyzer.test_model_cv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.regsem.TestResult">
+<em class="property">class </em><code class="descclassname">semopy.regsem.</code><code class="descname">TestResult</code><span class="sig-paren">(</span><em>ml_trn</em>, <em>ml_cv_mean</em>, <em>ml_cv</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.regsem.TestResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="semopy.regsem.TestResult.ml_cv">
+<code class="descname">ml_cv</code><a class="headerlink" href="#semopy.regsem.TestResult.ml_cv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.regsem.TestResult.ml_cv_mean">
+<code class="descname">ml_cv_mean</code><a class="headerlink" href="#semopy.regsem.TestResult.ml_cv_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.regsem.TestResult.ml_trn">
+<code class="descname">ml_trn</code><a class="headerlink" href="#semopy.regsem.TestResult.ml_trn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.stats">
+<span id="semopy-stats-module"></span><h2>semopy.stats module<a class="headerlink" href="#module-semopy.stats" title="Permalink to this headline">¶</a></h2>
+<p>Module contains all methods related to calculating parameters’ estimates’ 
+statistics and models’ fit indices.</p>
+<dl class="attribute">
+<dt id="semopy.stats.ParameterStatistics">
+<code class="descclassname">semopy.stats.</code><code class="descname">ParameterStatistics</code><a class="headerlink" href="#semopy.stats.ParameterStatistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">semopy.stats.ParametersStatistics</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.stats.SEMStatistics">
+<em class="property">class </em><code class="descclassname">semopy.stats.</code><code class="descname">SEMStatistics</code><span class="sig-paren">(</span><em>dof</em>, <em>ml</em>, <em>fit_val</em>, <em>chi2</em>, <em>dof_baseline</em>, <em>chi2_baseline</em>, <em>rmsea</em>, <em>cfi</em>, <em>gfi</em>, <em>agfi</em>, <em>nfi</em>, <em>tli</em>, <em>aic</em>, <em>bic</em>, <em>params</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.SEMStatistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.agfi">
+<code class="descname">agfi</code><a class="headerlink" href="#semopy.stats.SEMStatistics.agfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 9</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.aic">
+<code class="descname">aic</code><a class="headerlink" href="#semopy.stats.SEMStatistics.aic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 12</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.bic">
+<code class="descname">bic</code><a class="headerlink" href="#semopy.stats.SEMStatistics.bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 13</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.cfi">
+<code class="descname">cfi</code><a class="headerlink" href="#semopy.stats.SEMStatistics.cfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 7</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.chi2">
+<code class="descname">chi2</code><a class="headerlink" href="#semopy.stats.SEMStatistics.chi2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.chi2_baseline">
+<code class="descname">chi2_baseline</code><a class="headerlink" href="#semopy.stats.SEMStatistics.chi2_baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 5</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.dof">
+<code class="descname">dof</code><a class="headerlink" href="#semopy.stats.SEMStatistics.dof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.dof_baseline">
+<code class="descname">dof_baseline</code><a class="headerlink" href="#semopy.stats.SEMStatistics.dof_baseline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.fit_val">
+<code class="descname">fit_val</code><a class="headerlink" href="#semopy.stats.SEMStatistics.fit_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.gfi">
+<code class="descname">gfi</code><a class="headerlink" href="#semopy.stats.SEMStatistics.gfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 8</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.ml">
+<code class="descname">ml</code><a class="headerlink" href="#semopy.stats.SEMStatistics.ml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.nfi">
+<code class="descname">nfi</code><a class="headerlink" href="#semopy.stats.SEMStatistics.nfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 10</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.params">
+<code class="descname">params</code><a class="headerlink" href="#semopy.stats.SEMStatistics.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 14</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.rmsea">
+<code class="descname">rmsea</code><a class="headerlink" href="#semopy.stats.SEMStatistics.rmsea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 6</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.stats.SEMStatistics.tli">
+<code class="descname">tli</code><a class="headerlink" href="#semopy.stats.SEMStatistics.tli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Alias for field number 11</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_agfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_agfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>gfi=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_agfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates AGFI (adjusted goodness-of-fit index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt – Optimizer containing proper parameters’ values (not used</dt><dd><p>if dof and gfi provided).</p>
+</dd>
+</dl>
+<p>dof – Degrees of freedom.</p>
+<p>gfi – GFI.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>AGFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_aic">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_aic</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>lh=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_aic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates AIC.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+<p>lh  – Likelihood in case it was already calculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>AIC.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_bic">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_bic</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>lh=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates BIC.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+<p>lh  – Likelihood in case it was already calculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>BIC.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_cfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_cfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>dof_base=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_cfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates CFI (Comparative Fit Index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2, chi2 dof, dof_base_base provided).</p>
+</dd>
+</dl>
+<p>dof       – Degrees of freedom for target mode</p>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>dof_base  – Degrees of freedom for baseline model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>TLI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_chi2">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_chi2</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_chi2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates chi-square statistics.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing estimated parameters.</p>
+<p>dof – Degrees of freedom.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Chi-Square statistics, p-value.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_dof">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_dof</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_dof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates degrees of freedom.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Degrees of freedom.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_gfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_gfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>chi2=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_gfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates GFI (goodness-of-fit index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2 and chi2_base provided).</p>
+</dd>
+</dl>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>GFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_likelihood">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_likelihood</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dist='wishart'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Wishart likelihood.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt  – Optimizer containing proper parameters’ values.</p>
+<p>dist – ML distribution (‘normal’ or ‘wishart’)</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Wishart likelihood.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_nfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_nfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_nfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates NFI (Normed Fit Index).</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2 and chi2_base provided).</p>
+</dd>
+</dl>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>NFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_pvals">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_pvals</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>z_scores=None</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_pvals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates p-values.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<p>z_scores    – Z-scores in case they were already calculated.</p>
+<p>information – Whether to use expected FIM or observed.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>P-values.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_rmsea">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_rmsea</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>chisqr=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_rmsea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates RMSEA statistics;</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt    – Optimizer containing estimated parameters.</p>
+<p>chisqr – chi2 statistics.</p>
+<p>dof    – Degrees of freedom.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>RMSEA.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_se">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_se</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_se" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates standard errors.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<dl class="simple">
+<dt>information – Whether to use “expected” or “observed” Fisher information</dt><dd><p>matrix.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Standard errors.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_tli">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_tli</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>dof_base=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_tli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates TLI (Tucker and Lewis Index).</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2, chi2 dof, dof_base_base provided).</p>
+</dd>
+</dl>
+<p>dof       – Degrees of freedom for target mode.</p>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>dof_base  – Degrees of freedom for baseline model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>TLI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calc_zvals">
+<code class="descclassname">semopy.stats.</code><code class="descname">calc_zvals</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>std_errors=None</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calc_zvals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates z-scores.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<p>std_errors  – Standard errors in case they were already calculated.</p>
+<p>information – Whether to use expected FIM or observed.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Z-scores.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_agfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_agfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>gfi=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_agfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates AGFI (adjusted goodness-of-fit index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt – Optimizer containing proper parameters’ values (not used</dt><dd><p>if dof and gfi provided).</p>
+</dd>
+</dl>
+<p>dof – Degrees of freedom.</p>
+<p>gfi – GFI.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>AGFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_aic">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_aic</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>lh=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_aic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates AIC.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+<p>lh  – Likelihood in case it was already calculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>AIC.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_bic">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_bic</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>lh=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_bic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates BIC.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+<p>lh  – Likelihood in case it was already calculated.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>BIC.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_cfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_cfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>dof_base=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_cfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates CFI (Comparative Fit Index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2, chi2 dof, dof_base_base provided).</p>
+</dd>
+</dl>
+<p>dof       – Degrees of freedom for target mode.</p>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>dof_base  – Degrees of freedom for baseline model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>TLI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_chi_square">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_chi_square</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_chi_square" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates chi-square statistics.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing estimated parameters.</p>
+<p>dof – Degrees of freedom.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Chi-Square statistics, p-value.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_dof">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_dof</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_dof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates degrees of freedom.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt – Optimizer containing proper parameters’ values.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Degrees of freedom.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_gfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_gfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>chi2=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_gfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates GFI (goodness-of-fit index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2 and chi2_base provided).</p>
+</dd>
+</dl>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>GFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_likelihood">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_likelihood</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dist='wishart'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_likelihood" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates Wishart likelihood.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt  – Optimizer containing proper parameters’ values.</p>
+<p>dist – ML distribution (‘normal’ or ‘wishart’)</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Wishart likelihood.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_nfi">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_nfi</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_nfi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates NFI (Normed Fit Index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2 and chi2_base provided).</p>
+</dd>
+</dl>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>NFI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_p_values">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_p_values</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>z_scores=None</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_p_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates p-values.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<p>z_scores    – Z-scores in case they were already calculated.</p>
+<p>information – Whether to use expected FIM or observed.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>P-values.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_rmsea">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_rmsea</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>chisqr=None</em>, <em>dof=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_rmsea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates RMSEA statistics;</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt    – Optimizer containing estimated parameters.</p>
+<p>chisqr – chi2 statistics.</p>
+<p>dof    – Degrees of freedom.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>RMSEA.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_standard_errors">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_standard_errors</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_standard_errors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates standard errors.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<dl class="simple">
+<dt>information – Whether to use “expected” or “observed” Fisher information</dt><dd><p>matrix.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Standard errors.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_tli">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_tli</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>dof=None</em>, <em>chi2=None</em>, <em>dof_base=None</em>, <em>chi2_base=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_tli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates TLI (Tucker and Lewis Index).</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>opt       – Optimizer containing proper parameters’ values (not used</dt><dd><p>if chi2, chi2 dof, dof_base_base provided).</p>
+</dd>
+</dl>
+<p>dof       – Degrees of freedom for target mode.</p>
+<p>chi2      – chi2 statistics for target model.</p>
+<p>dof_base  – Degrees of freedom for baseline model.</p>
+<p>chi2_base – chi2 statistics for baseline model.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>TLI.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.calculate_z_values">
+<code class="descclassname">semopy.stats.</code><code class="descname">calculate_z_values</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>std_errors=None</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.calculate_z_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates z-scores.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<p>std_errors  – Standard errors in case they were already calculated.</p>
+<p>information – Whether to use expected FIM or observed.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Z-scores.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.gather_statistics">
+<code class="descclassname">semopy.stats.</code><code class="descname">gather_statistics</code><span class="sig-paren">(</span><em>opt: semopy.optimizer.Optimizer</em>, <em>information='expected'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.gather_statistics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves all statistics as specified in SEMStatistics structure.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>opt         – Optimizer containing proper parameters’ values.</p>
+<p>information – Whether to use expected FIM or observed.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>SEMStatistics.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.stats.get_baseline_model">
+<code class="descclassname">semopy.stats.</code><code class="descname">get_baseline_model</code><span class="sig-paren">(</span><em>model</em>, <em>data=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.stats.get_baseline_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves a the baseline model from given model. Baseline model
+here is an independence model where all variables are considered to be 
+independent with zero covariance. Only variances are estimated.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>model – Either string description or Model instance.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A baseline model.</p>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="semopy-test-model-module">
+<h2>semopy.test_model module<a class="headerlink" href="#semopy-test-model-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="semopy-test-optimizer-module">
+<h2>semopy.test_optimizer module<a class="headerlink" href="#semopy-test-optimizer-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-semopy.test_parser">
+<span id="semopy-test-parser-module"></span><h2>semopy.test_parser module<a class="headerlink" href="#module-semopy.test_parser" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="semopy.test_parser.TestOperations">
+<em class="property">class </em><code class="descclassname">semopy.test_parser.</code><code class="descname">TestOperations</code><a class="headerlink" href="#semopy.test_parser.TestOperations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="semopy.test_parser.TestOperations.OP1">
+<code class="descname">OP1</code><em class="property"> = '~'</em><a class="headerlink" href="#semopy.test_parser.TestOperations.OP1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="semopy.test_parser.TestOperations.OP2">
+<code class="descname">OP2</code><em class="property"> = '+!'</em><a class="headerlink" href="#semopy.test_parser.TestOperations.OP2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="semopy.test_parser.TestParser">
+<em class="property">class </em><code class="descclassname">semopy.test_parser.</code><code class="descname">TestParser</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.test_parser.TestParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="method">
+<dt id="semopy.test_parser.TestParser.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.test_parser.TestParser.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="semopy.test_parser.TestParser.test_parser">
+<code class="descname">test_parser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.test_parser.TestParser.test_parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.utils">
+<span id="semopy-utils-module"></span><h2>semopy.utils module<a class="headerlink" href="#module-semopy.utils" title="Permalink to this headline">¶</a></h2>
+<p>Different utility functions for internal usage.</p>
+<dl class="function">
+<dt id="semopy.utils.chol_inv">
+<code class="descclassname">semopy.utils.</code><code class="descname">chol_inv</code><span class="sig-paren">(</span><em>x: numpy.array</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.utils.chol_inv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates invserse of matrix using Cholesky decomposition.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>x – A matrix.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>x^-1.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.utils.cor">
+<code class="descclassname">semopy.utils.</code><code class="descname">cor</code><span class="sig-paren">(</span><em>x: numpy.array</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.utils.cor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes correlation matrix taking in account missing values.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>x    – A DataFrame.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Correlation matrix.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.utils.cov">
+<code class="descclassname">semopy.utils.</code><code class="descname">cov</code><span class="sig-paren">(</span><em>x: numpy.array</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.utils.cov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes covariance matrix taking in account missing values.</p>
+<p>Key arguments:</p>
+<blockquote>
+<div><p>x    – A DataFrame.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Covariance matrix.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.utils.get_cv_data_ann_kfold">
+<code class="descclassname">semopy.utils.</code><code class="descname">get_cv_data_ann_kfold</code><span class="sig-paren">(</span><em>data</em>, <em>k=4</em>, <em>iteration=1</em>, <em>shuffle=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.utils.get_cv_data_ann_kfold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="semopy.utils.get_cv_data_kfold">
+<code class="descclassname">semopy.utils.</code><code class="descname">get_cv_data_kfold</code><span class="sig-paren">(</span><em>data</em>, <em>k=4</em>, <em>iteration=1</em>, <em>shuffle=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.utils.get_cv_data_kfold" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-semopy.visualization">
+<span id="semopy-visualization-module"></span><h2>semopy.visualization module<a class="headerlink" href="#module-semopy.visualization" title="Permalink to this headline">¶</a></h2>
+<p>A temporarily outdated visualization module.</p>
+<dl class="function">
+<dt id="semopy.visualization.visualize">
+<code class="descclassname">semopy.visualization.</code><code class="descname">visualize</code><span class="sig-paren">(</span><em>model: semopy.model.Model</em>, <em>structural_part=True</em>, <em>measurement_part=False</em>, <em>view=True</em>, <em>filename=None</em>, <em>title=''</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.visualization.visualize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualization of SEM model via graphviz library.</p>
+<p>Keyword arguments:
+model            – A SEM model.
+structural_part  – Should structural part be visualised?
+measurement_part – Should measurement part be visualised?
+view             – Should graph be displayed?
+filename         – Filename/path.
+title            – Title.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-semopy" title="Permalink to this headline">¶</a></h2>
+<p>semopy is a Python package that implements numerous SEM-related functonality.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">semopy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Mesheryakov A. Georgy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source./semopy.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

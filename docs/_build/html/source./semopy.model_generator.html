@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>semopy.model_generator package &#8212; semopy 1.1.16 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="semopy-model-generator-package">
+<h1>semopy.model_generator package<a class="headerlink" href="#semopy-model-generator-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-semopy.model_generator.datagenerator">
+<span id="semopy-model-generator-datagenerator-module"></span><h2>semopy.model_generator.datagenerator module<a class="headerlink" href="#module-semopy.model_generator.datagenerator" title="Permalink to this headline">¶</a></h2>
+<p>The module contains methods for generating a data for a given model.</p>
+<dl class="function">
+<dt id="semopy.model_generator.datagenerator.DEFAULT_ERROR">
+<code class="descclassname">semopy.model_generator.datagenerator.</code><code class="descname">DEFAULT_ERROR</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.datagenerator.DEFAULT_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd><p>normal(loc=0.0, scale=1.0, size=None)</p>
+<p>Draw random samples from a normal (Gaussian) distribution.</p>
+<p>The probability density function of the normal distribution, first
+derived by De Moivre and 200 years later by both Gauss and Laplace
+independently <a href="#id17"><span class="problematic" id="id1">[2]_</span></a>, is often called the bell curve because of
+its characteristic shape (see the example below).</p>
+<p>The normal distributions occurs often in nature.  For example, it
+describes the commonly occurring distribution of samples influenced
+by a large number of tiny, random disturbances, each with its own
+unique distribution <a href="#id18"><span class="problematic" id="id2">[2]_</span></a>.</p>
+<dl class="simple">
+<dt>loc<span class="classifier">float or array_like of floats</span></dt><dd><p>Mean (“centre”) of the distribution.</p>
+</dd>
+<dt>scale<span class="classifier">float or array_like of floats</span></dt><dd><p>Standard deviation (spread or “width”) of the distribution.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(loc,</span> <span class="pre">scale).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized normal distribution.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>scipy.stats.norm<span class="classifier">probability density function, distribution or</span></dt><dd><p>cumulative density function, etc.</p>
+</dd>
+</dl>
+<p>The probability density for the Gaussian distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{\sqrt{ 2 \pi \sigma^2 }}
+e^{ - \frac{ (x - \mu)^2 } {2 \sigma^2} },\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> the standard
+deviation. The square of the standard deviation, <span class="math notranslate nohighlight">\(\sigma^2\)</span>,
+is called the variance.</p>
+<p>The function has its peak at the mean, and its “spread” increases with
+the standard deviation (the function reaches 0.607 times its maximum at
+<span class="math notranslate nohighlight">\(x + \sigma\)</span> and <span class="math notranslate nohighlight">\(x - \sigma\)</span> <a href="#id19"><span class="problematic" id="id3">[2]_</span></a>).  This implies that
+<cite>numpy.random.normal</cite> is more likely to return samples lying close to
+the mean, rather than those far away.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id4"><span class="brackets">1</span></dt>
+<dd><p>Wikipedia, “Normal distribution”,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">https://en.wikipedia.org/wiki/Normal_distribution</a></p>
+</dd>
+<dt class="label" id="id5"><span class="brackets">2</span></dt>
+<dd><p>P. R. Peebles Jr., “Central Limit Theorem” in “Probability,
+Random Variables and Random Signal Principles”, 4th ed., 2001,
+pp. 51, 51, 125.</p>
+</dd>
+</dl>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span> <span class="c1"># mean and standard deviation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Verify the mean and the variance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">sigma</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with
+the probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span>
+<span class="gp">... </span>               <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">),</span>
+<span class="gp">... </span>         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.datagenerator.DEFAULT_NORMAL">
+<code class="descclassname">semopy.model_generator.datagenerator.</code><code class="descname">DEFAULT_NORMAL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.datagenerator.DEFAULT_NORMAL" title="Permalink to this definition">¶</a></dt>
+<dd><p>uniform(low=0.0, high=1.0, size=None)</p>
+<p>Draw samples from a uniform distribution.</p>
+<p>Samples are uniformly distributed over the half-open interval
+<code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code> (includes low, but excludes high).  In other words,
+any value within the given interval is equally likely to be drawn
+by <cite>uniform</cite>.</p>
+<dl class="simple">
+<dt>low<span class="classifier">float or array_like of floats, optional</span></dt><dd><p>Lower boundary of the output interval.  All values generated will be
+greater than or equal to low.  The default value is 0.</p>
+</dd>
+<dt>high<span class="classifier">float or array_like of floats</span></dt><dd><p>Upper boundary of the output interval.  All values generated will be
+less than high.  The default value is 1.0.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(low,</span> <span class="pre">high).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized uniform distribution.</p>
+</dd>
+</dl>
+<p>randint : Discrete uniform distribution, yielding integers.
+random_integers : Discrete uniform distribution over the closed</p>
+<blockquote>
+<div><p>interval <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high]</span></code>.</p>
+</div></blockquote>
+<p>random_sample : Floats uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.
+random : Alias for <cite>random_sample</cite>.
+rand : Convenience function that accepts dimensions as input, e.g.,</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">rand(2,2)</span></code> would generate a 2-by-2 array of floats,
+uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.</p>
+</div></blockquote>
+<p>The probability density function of the uniform distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{b - a}\]</div>
+<p>anywhere within the interval <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b)</span></code>, and zero elsewhere.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">high</span></code> == <code class="docutils literal notranslate"><span class="pre">low</span></code>, values of <code class="docutils literal notranslate"><span class="pre">low</span></code> will be returned.
+If <code class="docutils literal notranslate"><span class="pre">high</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">low</span></code>, the results are officially undefined
+and may eventually raise an error, i.e. do not rely on this
+function to behave when passed arguments satisfying that
+inequality condition.</p>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All values are within the given interval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with the
+probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">bins</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.datagenerator.generate_data">
+<code class="descclassname">semopy.model_generator.datagenerator.</code><code class="descname">generate_data</code><span class="sig-paren">(</span><em>mpart: dict</em>, <em>spart: dict</em>, <em>mpart_params: dict</em>, <em>spart_params: dict</em>, <em>num_rows: int</em>, <em>threads: semopy.model_generator.utils.ThreadsManager</em>, <em>mpart_generator=functools.partial(&lt;built-in method uniform of mtrand.RandomState object&gt;</em>, <em>-1</em>, <em>3.4641)</em>, <em>spart_generator=functools.partial(&lt;built-in method uniform of mtrand.RandomState object&gt;</em>, <em>-1</em>, <em>3.4641)</em>, <em>error_generator=functools.partial(&lt;built-in method normal of mtrand.RandomState object&gt;</em>, <em>0</em>, <em>1)</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.datagenerator.generate_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a datasample given the model and it’s parameters.</p>
+<dl>
+<dt>Keyword arguments:</dt><dd><p>mpart           – A measurement part.</p>
+<p>spart           – A structural part.</p>
+<p>params_mpart    – Measurement part parameters.</p>
+<p>params_spart    – Structural part parameters.</p>
+<p>num_rows        – Number of samples in a dataset to be generated.</p>
+<p>threads         – An auxilary object produced by generate_structural_part.</p>
+<dl class="simple">
+<dt>mpart_generator – A function f(shape) that is used to randomly generate</dt><dd><p>data for measurement part.</p>
+</dd>
+<dt>spart_generator – A function f(shape) that is used to randomly generate</dt><dd><p>data for structural part.</p>
+</dd>
+<dt>error_generator – A function f(shape) that is used to randomly generate</dt><dd><p>errors for data.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Returns:</p>
+<blockquote>
+<div><p>A dataframe table.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.datagenerator.normal">
+<code class="descclassname">semopy.model_generator.datagenerator.</code><code class="descname">normal</code><span class="sig-paren">(</span><em>loc=0.0</em>, <em>scale=1.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.datagenerator.normal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw random samples from a normal (Gaussian) distribution.</p>
+<p>The probability density function of the normal distribution, first
+derived by De Moivre and 200 years later by both Gauss and Laplace
+independently <a href="#id20"><span class="problematic" id="id6">[2]_</span></a>, is often called the bell curve because of
+its characteristic shape (see the example below).</p>
+<p>The normal distributions occurs often in nature.  For example, it
+describes the commonly occurring distribution of samples influenced
+by a large number of tiny, random disturbances, each with its own
+unique distribution <a href="#id21"><span class="problematic" id="id7">[2]_</span></a>.</p>
+<dl class="simple">
+<dt>loc<span class="classifier">float or array_like of floats</span></dt><dd><p>Mean (“centre”) of the distribution.</p>
+</dd>
+<dt>scale<span class="classifier">float or array_like of floats</span></dt><dd><p>Standard deviation (spread or “width”) of the distribution.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">loc</span></code> and <code class="docutils literal notranslate"><span class="pre">scale</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(loc,</span> <span class="pre">scale).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized normal distribution.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>scipy.stats.norm<span class="classifier">probability density function, distribution or</span></dt><dd><p>cumulative density function, etc.</p>
+</dd>
+</dl>
+<p>The probability density for the Gaussian distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{\sqrt{ 2 \pi \sigma^2 }}
+e^{ - \frac{ (x - \mu)^2 } {2 \sigma^2} },\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> the standard
+deviation. The square of the standard deviation, <span class="math notranslate nohighlight">\(\sigma^2\)</span>,
+is called the variance.</p>
+<p>The function has its peak at the mean, and its “spread” increases with
+the standard deviation (the function reaches 0.607 times its maximum at
+<span class="math notranslate nohighlight">\(x + \sigma\)</span> and <span class="math notranslate nohighlight">\(x - \sigma\)</span> <a href="#id22"><span class="problematic" id="id8">[2]_</span></a>).  This implies that
+<cite>numpy.random.normal</cite> is more likely to return samples lying close to
+the mean, rather than those far away.</p>
+<dl class="footnote brackets">
+<dt class="label" id="id9"><span class="brackets">1</span></dt>
+<dd><p>Wikipedia, “Normal distribution”,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Normal_distribution">https://en.wikipedia.org/wiki/Normal_distribution</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets">2</span></dt>
+<dd><p>P. R. Peebles Jr., “Central Limit Theorem” in “Probability,
+Random Variables and Random Signal Principles”, 4th ed., 2001,
+pp. 51, 51, 125.</p>
+</dd>
+</dl>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span> <span class="c1"># mean and standard deviation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Verify the mean and the variance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">abs</span><span class="p">(</span><span class="n">sigma</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.01</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with
+the probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span>
+<span class="gp">... </span>               <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span> <span class="o">-</span> <span class="p">(</span><span class="n">bins</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="p">),</span>
+<span class="gp">... </span>         <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.datagenerator.uniform">
+<code class="descclassname">semopy.model_generator.datagenerator.</code><code class="descname">uniform</code><span class="sig-paren">(</span><em>low=0.0</em>, <em>high=1.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.datagenerator.uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from a uniform distribution.</p>
+<p>Samples are uniformly distributed over the half-open interval
+<code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code> (includes low, but excludes high).  In other words,
+any value within the given interval is equally likely to be drawn
+by <cite>uniform</cite>.</p>
+<dl class="simple">
+<dt>low<span class="classifier">float or array_like of floats, optional</span></dt><dd><p>Lower boundary of the output interval.  All values generated will be
+greater than or equal to low.  The default value is 0.</p>
+</dd>
+<dt>high<span class="classifier">float or array_like of floats</span></dt><dd><p>Upper boundary of the output interval.  All values generated will be
+less than high.  The default value is 1.0.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(low,</span> <span class="pre">high).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized uniform distribution.</p>
+</dd>
+</dl>
+<p>randint : Discrete uniform distribution, yielding integers.
+random_integers : Discrete uniform distribution over the closed</p>
+<blockquote>
+<div><p>interval <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high]</span></code>.</p>
+</div></blockquote>
+<p>random_sample : Floats uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.
+random : Alias for <cite>random_sample</cite>.
+rand : Convenience function that accepts dimensions as input, e.g.,</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">rand(2,2)</span></code> would generate a 2-by-2 array of floats,
+uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.</p>
+</div></blockquote>
+<p>The probability density function of the uniform distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{b - a}\]</div>
+<p>anywhere within the interval <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b)</span></code>, and zero elsewhere.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">high</span></code> == <code class="docutils literal notranslate"><span class="pre">low</span></code>, values of <code class="docutils literal notranslate"><span class="pre">low</span></code> will be returned.
+If <code class="docutils literal notranslate"><span class="pre">high</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">low</span></code>, the results are officially undefined
+and may eventually raise an error, i.e. do not rely on this
+function to behave when passed arguments satisfying that
+inequality condition.</p>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All values are within the given interval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with the
+probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">bins</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_generator.generator">
+<span id="semopy-model-generator-generator-module"></span><h2>semopy.model_generator.generator module<a class="headerlink" href="#module-semopy.model_generator.generator" title="Permalink to this headline">¶</a></h2>
+<p>The module contains an umbrella methods that incroporate in themselves
+methods from other modules of model_generator for simplicity purposes.
+Less options, but much easier to use.</p>
+<dl class="function">
+<dt id="semopy.model_generator.generator.choice">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">choice</code><span class="sig-paren">(</span><em>a</em>, <em>size=None</em>, <em>replace=True</em>, <em>p=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a random sample from a given 1-D array</p>
+<blockquote>
+<div><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.7.0.</span></p>
+</div>
+</div></blockquote>
+<dl class="simple">
+<dt>a<span class="classifier">1-D array-like or int</span></dt><dd><p>If an ndarray, a random sample is generated from its elements.
+If an int, the random sample is generated as if a were np.arange(a)</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  Default is None, in which case a
+single value is returned.</p>
+</dd>
+<dt>replace<span class="classifier">boolean, optional</span></dt><dd><p>Whether the sample is with or without replacement</p>
+</dd>
+<dt>p<span class="classifier">1-D array-like, optional</span></dt><dd><p>The probabilities associated with each entry in a.
+If not given the sample assumes a uniform distribution over all
+entries in a.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>samples<span class="classifier">single item or ndarray</span></dt><dd><p>The generated random samples</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>ValueError</dt><dd><p>If a is an int and less than zero, if a or p are not 1-dimensional,
+if a is an array-like of size 0, if p is not a vector of
+probabilities, if a and p have different lengths, or if
+replace=False and the sample size is greater than the population
+size</p>
+</dd>
+</dl>
+<p>randint, shuffle, permutation</p>
+<p>Generate a uniform random sample from np.arange(5) of size 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#This is equivalent to np.random.randint(0,5,3)</span>
+</pre></div>
+</div>
+<p>Generate a non-uniform random sample from np.arange(5) of size 3:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">array([3, 3, 0])</span>
+</pre></div>
+</div>
+<p>Generate a uniform random sample from np.arange(5) of size 3 without
+replacement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">array([3,1,0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#This is equivalent to np.random.permutation(np.arange(5))[:3]</span>
+</pre></div>
+</div>
+<p>Generate a non-uniform random sample from np.arange(5) of size
+3 without replacement:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">array([2, 3, 0])</span>
+</pre></div>
+</div>
+<p>Any of the above can be repeated with an arbitrary array-like
+instead of just integers. For instance:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">aa_milne_arr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pooh&#39;</span><span class="p">,</span> <span class="s1">&#39;rabbit&#39;</span><span class="p">,</span> <span class="s1">&#39;piglet&#39;</span><span class="p">,</span> <span class="s1">&#39;Christopher&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">aa_milne_arr</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">])</span>
+<span class="go">array([&#39;pooh&#39;, &#39;pooh&#39;, &#39;pooh&#39;, &#39;Christopher&#39;, &#39;piglet&#39;],</span>
+<span class="go">      dtype=&#39;|S11&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.generator.generate_data_for_model">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">generate_data_for_model</code><span class="sig-paren">(</span><em>model: str</em>, <em>n_samples: int</em>, <em>params=None</em>, <em>f_gen=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.generate_data_for_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a dataset for given model.
+Keyword arguments:</p>
+<blockquote>
+<div><p>model     – A model description.
+n_samples – A number of samples in a dataset.
+params    – Parameters in a form (params_mpart, params_spart).
+f_gen     – A generator function from where random data is sampled.</p>
+<blockquote>
+<div><p>Leave None to use default distribution settings.</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>A Pandas DataFrame containing dataset for a model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.generator.generate_model">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">generate_model</code><span class="sig-paren">(</span><em>n_obs: int</em>, <em>n_lat: int</em>, <em>n_manif: tuple</em>, <em>p_manif: float</em>, <em>n_cycles: int</em>, <em>scale: float</em>, <em>n_size: int</em>, <em>f_gen=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.generate_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a measurement, structural parts, parameters and data. Bear in
+mind that this method is a wrapper around generatte_measurement_part,
+generated_structura_part, generate_parameters and generate_data. The
+functionality embodied in those methods is much broader than in this one.
+If one wishes to approach the generation process with a greater
+versatility, consider using those methods instead (see their __doc__
+strings). This methods exists solely for simplicity purposes.
+Keyword arguments:</p>
+<blockquote>
+<div><p>n_obs    – A number of observed variables in structural part.
+n_lat    – A number of latent variables in structural part.
+n_manif  – A range from which a number of manifest variables will be</p>
+<blockquote>
+<div><p>chosen for each latent variable.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>p_manif  – A percentage of manifest variables that will be merged</dt><dd><p>together.</p>
+</dd>
+</dl>
+<p>n_cycles – A number of cycles to be present in the model.
+scale    – All parameters sampled from uniform distribution on interval</p>
+<blockquote>
+<div><p>[-1, -0.1]u[0.1, 1] are multiplied by this value.</p>
+</div></blockquote>
+<p>n_size   – A number of data samples.
+f_gen    – A generator function from where parameters’ values are</p>
+<blockquote>
+<div><p>sampled. Overwrites scale parameter making it useless.
+Leave none to use default distribution settings.</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>Model description, DataFrame with parameters values, data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.generator.generate_params_for_model">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">generate_params_for_model</code><span class="sig-paren">(</span><em>model: str</em>, <em>scale=1.0</em>, <em>f_gen=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.generate_params_for_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates parameters for model in a form required for generator
+functions given model description.
+Keyword arguments:</p>
+<blockquote>
+<div><p>model – A model description.
+scale – A scale paramater as in generate_model function.
+f_gen – An f_gen parameter as in generate_model function.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>(params_mpart, params_spart), a dataframe of parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.generator.get_parts_from_description">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">get_parts_from_description</code><span class="sig-paren">(</span><em>desc: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.get_parts_from_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves m_part and s_part for generator functions given string
+description of the model.
+Keyword arguments:</p>
+<blockquote>
+<div><p>desc – A description of model.</p>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>m_part and s_part.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.generator.param_gen">
+<code class="descclassname">semopy.model_generator.generator.</code><code class="descname">param_gen</code><span class="sig-paren">(</span><em>scale</em>, <em>shift</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.generator.param_gen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_generator.paramgenerator">
+<span id="semopy-model-generator-paramgenerator-module"></span><h2>semopy.model_generator.paramgenerator module<a class="headerlink" href="#module-semopy.model_generator.paramgenerator" title="Permalink to this headline">¶</a></h2>
+<p>The module contains methods to generate parameters for a given model.</p>
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.exponential">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">exponential</code><span class="sig-paren">(</span><em>scale=1.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.exponential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from an exponential distribution.</p>
+<p>Its probability density function is</p>
+<div class="math notranslate nohighlight">
+\[f(x; \frac{1}{\beta}) = \frac{1}{\beta} \exp(-\frac{x}{\beta}),\]</div>
+<p>for <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> and 0 elsewhere. <span class="math notranslate nohighlight">\(\beta\)</span> is the scale parameter,
+which is the inverse of the rate parameter <span class="math notranslate nohighlight">\(\lambda = 1/\beta\)</span>.
+The rate parameter is an alternative, widely used parameterization
+of the exponential distribution <a class="footnote-reference brackets" href="#id16" id="id11">3</a>.</p>
+<p>The exponential distribution is a continuous analogue of the
+geometric distribution.  It describes many common situations, such as
+the size of raindrops measured over many rainstorms <a href="#id23"><span class="problematic" id="id12">[1]_</span></a>, or the time
+between page requests to Wikipedia <a href="#id24"><span class="problematic" id="id13">[2]_</span></a>.</p>
+<dl class="simple">
+<dt>scale<span class="classifier">float or array_like of floats</span></dt><dd><p>The scale parameter, <span class="math notranslate nohighlight">\(\beta = 1/\lambda\)</span>.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">scale</span></code> is a scalar.  Otherwise,
+<code class="docutils literal notranslate"><span class="pre">np.array(scale).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized exponential distribution.</p>
+</dd>
+</dl>
+<dl class="footnote brackets">
+<dt class="label" id="id14"><span class="brackets">1</span></dt>
+<dd><p>Peyton Z. Peebles Jr., “Probability, Random Variables and
+Random Signal Principles”, 4th ed, 2001, p. 57.</p>
+</dd>
+<dt class="label" id="id15"><span class="brackets">2</span></dt>
+<dd><p>Wikipedia, “Poisson process”,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_process">https://en.wikipedia.org/wiki/Poisson_process</a></p>
+</dd>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id11">3</a></span></dt>
+<dd><p>Wikipedia, “Exponential distribution”,
+<a class="reference external" href="https://en.wikipedia.org/wiki/Exponential_distribution">https://en.wikipedia.org/wiki/Exponential_distribution</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.generate_parameters">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">generate_parameters</code><span class="sig-paren">(</span><em>mpart: dict</em>, <em>spart: dict</em>, <em>mpart_generator=&lt;function trunc_norm&gt;</em>, <em>spart_generator=&lt;function trunc_norm&gt;</em>, <em>mpart_fix_value=1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.generate_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates random parameters for the proposed model.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>mpart           – A measurement part.</p>
+<p>spart           – A structural part.</p>
+<dl class="simple">
+<dt>mpart_generator – A function f() that is used to randomly generate</dt><dd><p>parameters for measurement part.</p>
+</dd>
+<dt>spart_generator – A function f() that is used to randomly generate</dt><dd><p>parameters for structural part.</p>
+</dd>
+<dt>mpart_fix_value – A value to fix with firsts indicators for each latent</dt><dd><p>variable.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>Two dictionaries with parameters for spart and mpart in the form
+{‘SomeVariable’: [(y1, 1.0), (y2, 5.5)]}</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.generate_parameters_part">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">generate_parameters_part</code><span class="sig-paren">(</span><em>part: dict</em>, <em>generator</em>, <em>fix_first=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.generate_parameters_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.params_set_to_dataframe">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">params_set_to_dataframe</code><span class="sig-paren">(</span><em>mpart: dict</em>, <em>spart: dict</em>, <em>include_first_ind=True</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.params_set_to_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Translates a set of parameters produced by generate_parameters to a
+pandas’ DataFrame.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>params – One of dictionaries returned by generate_parameters.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A pandas’ DataFrame.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.trunc_exp">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">trunc_exp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.trunc_exp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.trunc_norm">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">trunc_norm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.trunc_norm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.paramgenerator.uniform">
+<code class="descclassname">semopy.model_generator.paramgenerator.</code><code class="descname">uniform</code><span class="sig-paren">(</span><em>low=0.0</em>, <em>high=1.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.paramgenerator.uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from a uniform distribution.</p>
+<p>Samples are uniformly distributed over the half-open interval
+<code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code> (includes low, but excludes high).  In other words,
+any value within the given interval is equally likely to be drawn
+by <cite>uniform</cite>.</p>
+<dl class="simple">
+<dt>low<span class="classifier">float or array_like of floats, optional</span></dt><dd><p>Lower boundary of the output interval.  All values generated will be
+greater than or equal to low.  The default value is 0.</p>
+</dd>
+<dt>high<span class="classifier">float or array_like of floats</span></dt><dd><p>Upper boundary of the output interval.  All values generated will be
+less than high.  The default value is 1.0.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(low,</span> <span class="pre">high).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized uniform distribution.</p>
+</dd>
+</dl>
+<p>randint : Discrete uniform distribution, yielding integers.
+random_integers : Discrete uniform distribution over the closed</p>
+<blockquote>
+<div><p>interval <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high]</span></code>.</p>
+</div></blockquote>
+<p>random_sample : Floats uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.
+random : Alias for <cite>random_sample</cite>.
+rand : Convenience function that accepts dimensions as input, e.g.,</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">rand(2,2)</span></code> would generate a 2-by-2 array of floats,
+uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.</p>
+</div></blockquote>
+<p>The probability density function of the uniform distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{b - a}\]</div>
+<p>anywhere within the interval <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b)</span></code>, and zero elsewhere.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">high</span></code> == <code class="docutils literal notranslate"><span class="pre">low</span></code>, values of <code class="docutils literal notranslate"><span class="pre">low</span></code> will be returned.
+If <code class="docutils literal notranslate"><span class="pre">high</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">low</span></code>, the results are officially undefined
+and may eventually raise an error, i.e. do not rely on this
+function to behave when passed arguments satisfying that
+inequality condition.</p>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All values are within the given interval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with the
+probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">bins</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_generator.structgenerator">
+<span id="semopy-model-generator-structgenerator-module"></span><h2>semopy.model_generator.structgenerator module<a class="headerlink" href="#module-semopy.model_generator.structgenerator" title="Permalink to this headline">¶</a></h2>
+<p>This module contains methods that generate structural and measurement parts
+of a SEM model.</p>
+<dl class="function">
+<dt id="semopy.model_generator.structgenerator.create_model_description">
+<code class="descclassname">semopy.model_generator.structgenerator.</code><code class="descname">create_model_description</code><span class="sig-paren">(</span><em>mpart: dict</em>, <em>spart: dict</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.structgenerator.create_model_description" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Creates a model description in a text form using respective measurement</dt><dd><p>part and structural part.</p>
+</dd>
+</dl>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>mpart – A measurement part.</p>
+<p>spart – A structural part.</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A string containing model’s description.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.structgenerator.generate_measurement_part">
+<code class="descclassname">semopy.model_generator.structgenerator.</code><code class="descname">generate_measurement_part</code><span class="sig-paren">(</span><em>num_latents</em>, <em>num_indicators=(2</em>, <em>3)</em>, <em>percentage_inds=0.0</em>, <em>max_joint_lats=2</em>, <em>name_latent='eta'</em>, <em>name_indicator='y'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.structgenerator.generate_measurement_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates latent variables and their respective indicators.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><p>num_latents      – A number of latent variables.</p>
+<p>num_indicators   – A number of indicator variables per latent (a tuple).</p>
+<dl class="simple">
+<dt>percentage_inds  – A percentage of manifest variables to be joined</dt><dd><p>together.</p>
+</dd>
+</dl>
+<p>name_latent      – A name prefix for latent variables (“eta” by default).</p>
+<p>name_indicator   – A name prefix for indicator variable (“y” by default).</p>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A measurement part.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.structgenerator.generate_structural_part">
+<code class="descclassname">semopy.model_generator.structgenerator.</code><code class="descname">generate_structural_part</code><span class="sig-paren">(</span><em>m_part: dict</em>, <em>num_observed: int</em>, <em>num_cycles=0</em>, <em>name_observed='x'</em>, <em>names_observed=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.structgenerator.generate_structural_part" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a structural part.</p>
+<p>Keyword arguments:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>m_part              – A measurement part to incorporate into a structural</dt><dd><p>part (including latents).</p>
+</dd>
+</dl>
+<p>num_observed:       – A number of observed variables.</p>
+<p>num_cycles          – A maximal number of cycles.</p>
+<p>name_observed       – A name prefix for observable variables.</p>
+<dl class="simple">
+<dt>names_observed      – A predefinex list of names for the first n observed</dt><dd><p>variables.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>A structural part and an auxillary by-product ThreadsManager.</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.structgenerator.randint">
+<code class="descclassname">semopy.model_generator.structgenerator.</code><code class="descname">randint</code><span class="sig-paren">(</span><em>low</em>, <em>high=None</em>, <em>size=None</em>, <em>dtype='l'</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.structgenerator.randint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return random integers from <cite>low</cite> (inclusive) to <cite>high</cite> (exclusive).</p>
+<p>Return random integers from the “discrete uniform” distribution of
+the specified dtype in the “half-open” interval [<cite>low</cite>, <cite>high</cite>). If
+<cite>high</cite> is None (the default), then results are from [0, <cite>low</cite>).</p>
+<dl>
+<dt>low<span class="classifier">int</span></dt><dd><p>Lowest (signed) integer to be drawn from the distribution (unless
+<code class="docutils literal notranslate"><span class="pre">high=None</span></code>, in which case this parameter is one above the
+<em>highest</em> such integer).</p>
+</dd>
+<dt>high<span class="classifier">int, optional</span></dt><dd><p>If provided, one above the largest (signed) integer to be drawn
+from the distribution (see above for behavior if <code class="docutils literal notranslate"><span class="pre">high=None</span></code>).</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  Default is None, in which case a
+single value is returned.</p>
+</dd>
+<dt>dtype<span class="classifier">dtype, optional</span></dt><dd><p>Desired dtype of the result. All dtypes are determined by their
+name, i.e., ‘int64’, ‘int’, etc, so byteorder is not available
+and a specific precision may have different C types depending
+on the platform. The default value is ‘np.int’.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.11.0.</span></p>
+</div>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">int or ndarray of ints</span></dt><dd><p><cite>size</cite>-shaped array of random integers from the appropriate
+distribution, or a single such random int if <cite>size</cite> not provided.</p>
+</dd>
+</dl>
+<dl>
+<dt>random.random_integers<span class="classifier">similar to <cite>randint</cite>, only for the closed</span></dt><dd><p>interval [<cite>low</cite>, <cite>high</cite>], and 1 is the lowest value if <cite>high</cite> is
+omitted. In particular, this other one is the one to use to generate
+uniformly distributed discrete non-integers.</p>
+</dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">array([1, 0, 0, 0, 1, 1, 0, 0, 1, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="go">array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])</span>
+</pre></div>
+</div>
+<p>Generate a 2 x 4 array of ints between 0 and 4, inclusive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="go">array([[4, 0, 2, 1],</span>
+<span class="go">       [3, 2, 2, 0]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.structgenerator.uniform">
+<code class="descclassname">semopy.model_generator.structgenerator.</code><code class="descname">uniform</code><span class="sig-paren">(</span><em>low=0.0</em>, <em>high=1.0</em>, <em>size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.structgenerator.uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw samples from a uniform distribution.</p>
+<p>Samples are uniformly distributed over the half-open interval
+<code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high)</span></code> (includes low, but excludes high).  In other words,
+any value within the given interval is equally likely to be drawn
+by <cite>uniform</cite>.</p>
+<dl class="simple">
+<dt>low<span class="classifier">float or array_like of floats, optional</span></dt><dd><p>Lower boundary of the output interval.  All values generated will be
+greater than or equal to low.  The default value is 0.</p>
+</dd>
+<dt>high<span class="classifier">float or array_like of floats</span></dt><dd><p>Upper boundary of the output interval.  All values generated will be
+less than high.  The default value is 1.0.</p>
+</dd>
+<dt>size<span class="classifier">int or tuple of ints, optional</span></dt><dd><p>Output shape.  If the given shape is, e.g., <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n,</span> <span class="pre">k)</span></code>, then
+<code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">*</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code> samples are drawn.  If size is <code class="docutils literal notranslate"><span class="pre">None</span></code> (default),
+a single value is returned if <code class="docutils literal notranslate"><span class="pre">low</span></code> and <code class="docutils literal notranslate"><span class="pre">high</span></code> are both scalars.
+Otherwise, <code class="docutils literal notranslate"><span class="pre">np.broadcast(low,</span> <span class="pre">high).size</span></code> samples are drawn.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>out<span class="classifier">ndarray or scalar</span></dt><dd><p>Drawn samples from the parameterized uniform distribution.</p>
+</dd>
+</dl>
+<p>randint : Discrete uniform distribution, yielding integers.
+random_integers : Discrete uniform distribution over the closed</p>
+<blockquote>
+<div><p>interval <code class="docutils literal notranslate"><span class="pre">[low,</span> <span class="pre">high]</span></code>.</p>
+</div></blockquote>
+<p>random_sample : Floats uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.
+random : Alias for <cite>random_sample</cite>.
+rand : Convenience function that accepts dimensions as input, e.g.,</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">rand(2,2)</span></code> would generate a 2-by-2 array of floats,
+uniformly distributed over <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1)</span></code>.</p>
+</div></blockquote>
+<p>The probability density function of the uniform distribution is</p>
+<div class="math notranslate nohighlight">
+\[p(x) = \frac{1}{b - a}\]</div>
+<p>anywhere within the interval <code class="docutils literal notranslate"><span class="pre">[a,</span> <span class="pre">b)</span></code>, and zero elsewhere.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">high</span></code> == <code class="docutils literal notranslate"><span class="pre">low</span></code>, values of <code class="docutils literal notranslate"><span class="pre">low</span></code> will be returned.
+If <code class="docutils literal notranslate"><span class="pre">high</span></code> &lt; <code class="docutils literal notranslate"><span class="pre">low</span></code>, the results are officially undefined
+and may eventually raise an error, i.e. do not rely on this
+function to behave when passed arguments satisfying that
+inequality condition.</p>
+<p>Draw samples from the distribution:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All values are within the given interval:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>Display the histogram of the samples, along with the
+probability density function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">,</span> <span class="n">bins</span><span class="p">,</span> <span class="n">ignored</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">bins</span><span class="p">),</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_generator.utils">
+<span id="semopy-model-generator-utils-module"></span><h2>semopy.model_generator.utils module<a class="headerlink" href="#module-semopy.model_generator.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="semopy.model_generator.utils.ThreadsManager">
+<em class="property">class </em><code class="descclassname">semopy.model_generator.utils.</code><code class="descname">ThreadsManager</code><span class="sig-paren">(</span><em>dicts=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A helper class used to keep track of different threads in graph. Needed
+to build cycles if neccessary.</p>
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.add_node">
+<code class="descname">add_node</code><span class="sig-paren">(</span><em>node: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.add_node" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.connect_nodes">
+<code class="descname">connect_nodes</code><span class="sig-paren">(</span><em>a: str</em>, <em>b: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.connect_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.find_threads">
+<code class="descname">find_threads</code><span class="sig-paren">(</span><em>node: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.find_threads" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.get_confluent_path">
+<code class="descname">get_confluent_path</code><span class="sig-paren">(</span><em>source_node: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.get_confluent_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.get_node_order">
+<code class="descname">get_node_order</code><span class="sig-paren">(</span><em>node: str</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.get_node_order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.load_from_dict">
+<code class="descname">load_from_dict</code><span class="sig-paren">(</span><em>d: dict</em>, <em>reverse=False</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.load_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="semopy.model_generator.utils.ThreadsManager.translate_to_dict">
+<code class="descname">translate_to_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.ThreadsManager.translate_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="semopy.model_generator.utils.get_tuple_index">
+<code class="descclassname">semopy.model_generator.utils.</code><code class="descname">get_tuple_index</code><span class="sig-paren">(</span><em>l</em>, <em>index</em>, <em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#semopy.model_generator.utils.get_tuple_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-semopy.model_generator">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-semopy.model_generator" title="Permalink to this headline">¶</a></h2>
+<p>Testing framework for SEM packages.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">semopy</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Mesheryakov A. Georgy.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.0.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/source./semopy.model_generator.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

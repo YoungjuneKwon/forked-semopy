@@ -12,6 +12,7 @@
 
 ## Installation
 **semopy** is available at PyPi and can be installed by typing the following line into terminal:
+
 `pip install semopy`
 
 ## Syntax
@@ -22,24 +23,25 @@ To specify SEM models, The **semopy** uses the syntax, which is natural to descr
 - ~~ to specify common variance between variables.
 
 For example, let a linear equation in the structural part of SEM model take the form:
->y = β1 x1 + β2 x2 + ε 
+
+`y = β1 x1 + β2 x2 + ε` 
 
 Then, in **semopy** syntax it becomes:
 
->y ~ x1 + x2
+`y ~ x1 + x2`
 
 Parameters β1, β2 are to be estimated by **semopy**. In some cases a user might want to fix some of parameters to particular value. For instance, let's assume that we want β1 to stay equal to 2.0 and we are only interested in estimating β2:
 
-> y ~ 2*x1 + x2
+`y ~ 2*x1 + x2`
 
 
 Likewise, if a latent variable η is explained by manifest variables y1, y2, y3, then in **semopy** syntax it can be written down this way:
 
->eta =~ y1 + y2 + y3
+`eta =~ y1 + y2 + y3`
 
 It is also possible to specify a type of variable. If variable x2 is ordinal, we can inform package about it by using a special operator "is":
 
->x2 is ordinal
+`x2 is ordinal`
 
 
 ## Quickstart
