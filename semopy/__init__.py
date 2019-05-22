@@ -9,4 +9,4 @@ from .model_nl import ModelNL
 from .model import Model
 
 name = "semopy"
-__version__ = "1.1.16"
+__version__ = "1.1.7"

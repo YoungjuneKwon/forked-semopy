@@ -1,4 +1,6 @@
 # semopy
+[![Documentation Status](https://readthedocs.org/projects/semopy/badge/?version=latest)](https://semopy.readthedocs.io/en/latest/?badge=latest)
+
 
 **semopy** is an umbrella Python package that includes numerous Structural Equation Modelling (SEM) techniques. 
 
@@ -14,6 +16,7 @@
 **semopy** is available at PyPi and can be installed by typing the following line into terminal:
 
 `pip install semopy`
+
 
 ## Syntax
 To specify SEM models, The **semopy** uses the syntax, which is natural to describe regression models in R. The syntax supports three operator symbols characterising relationships between variables:
@@ -95,9 +98,12 @@ inspect(opt)
 All methods and classes have a docstring provided and a **Sphinx**-generated documentation is also available at [ReadTheDocs](semopy.readthedocs.io). For more details see an article.
 
 
+## Requirements
+**numpy**, **pandas**, **scipy**, **graphviz**, **portmin** (our **PORTMIN** [port](pypi.org/portmin)).
+
 ## Authors
 
-* **Mescheryakov A. Georgy** - *Programmer* - [Herrberg](https://bitbucket.org/herrberg) - undegraduate student, SPbSTU
+* **Mescheryakov A. Georgy** - *Developer* - [Herrberg](https://bitbucket.org/herrberg) - undegraduate student, SPbSTU
 * **Igolkina A. Anna** - *Supervisor* - [iganna](https://github.com/iganna) - PhD, SPbSTU
 
 ## License
