@@ -48,7 +48,7 @@ It is also possible to specify a type of variable. If variable x2 is ordinal, we
 
 
 ## Quickstart
-For Jupyter notebooks examples with real data see [Examples](/examples) directory.
+For Jupyter notebooks examples with real data see [Examples](https://bitbucket.org/herrberg/semopy/src/master/examples/) directory.
 
 The pipeline for working with SEM models in **semopy** consists of three steps:
 1. Specifying a model

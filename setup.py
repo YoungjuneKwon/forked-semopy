@@ -8,7 +8,7 @@ setup(
       package_data = { 'PD': ['pd_data.txt'], 'Example': ['example_data.txt']},
       install_requires=['scipy', 'numpy', 'pandas', 'graphviz', 'portmin'],
       name="semopy",
-      version="1.1.7",
+      version="1.1.8",
       author="Meshcheryakov A. Georgy",
       author_email="metsheryakov_ga@spbstu.ru",
       description="Structural Equation Modelling optimisation package.",
