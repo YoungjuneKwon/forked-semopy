@@ -85,7 +85,7 @@ opt = Optimizer(model)
 objective_function_value = opt.optimize()
 ~~~
 
-The default objective function for estimating parameters is the likelihood function and the optimisation method is SLSQP (Sequential Least-Squares Quadratic Programming). However, the *semopy* supports a wide range of other objective functions and optimisation schemes being specified as parameters in the *optimize* method.
+The default objective function for estimating parameters is the likelihood function and the optimisation method is SLSQP (Sequential Least-Squares Quadratic Programming). However, the *semopy* supports a wide range of other objective functions and optimisation schemes being specified as parameters in the `optimize` method.
 
 Finally, user can `inspect` parameters' estimates:
 
