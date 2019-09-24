@@ -55,9 +55,9 @@ The pipeline for working with SEM models in **semopy** consists of three steps:
 2. Loading a dataset to the model
 3. Estimating parameters of the model.
 
-Two main objects required for scpecifying and estimating an SEM model are *Model* and *Optimizer*.
+Two main objects required for scpecifying and estimating an SEM model are `Model` and `Optimizer`.
 
-*Model* is responsible for setting up a model from the proposed SEM syntax:
+`Model` is responsible for setting up a model from the proposed SEM syntax:
 ~~~
 # The first step
 from semopy import Model
@@ -77,7 +77,7 @@ model.load_dataset(data)
 ~~~
 
 
-To estimate parameters of the model an *Optimizer* object should be initialised and estimation executed:
+To estimate parameters of the model an `Optimizer` object should be initialised and estimation executed:
 ~~~
 # The third step
 from semopy import Optimizer
@@ -87,12 +87,41 @@ objective_function_value = opt.optimize()
 
 The default objective function for estimating parameters is the likelihood function and the optimisation method is SLSQP (Sequential Least-Squares Quadratic Programming). However, the *semopy* supports a wide range of other objective functions and optimisation schemes being specified as parameters in the *optimize* method.
 
-Finally, user can inspect parameters' estimates:
+Finally, user can `inspect` parameters' estimates:
 
 ~~~
 from semopy.inspector import inspect
 inspect(opt)
 ~~~
+
+## Possible warnings
+
+**semopy** may throw warnings to stdout under certain circumstances.
+
+> Warning: DoF ($DoF$) is less than zero, the model is underspecified.
+
+Self-explanatory, arises when Degrees of Freedom index is less than 0; implies bad identification.
+
+
+> Warning: variable $variable$ attains only one value.
+
+Arises when **semopy** runs a polychoric/polyserial correlations estimation procedure and one of the ordinal variables attains only 1 value in a dataset; implies redunancy of $variable$.
+
+
+> Warning: a sample covariance matrix is not positive-definite.
+
+Self-explanatory. This warning may arise after instantiation of `Optimizer`. If it happens, please check data for linearly dependent (or almost dependent) variables.
+
+
+> Warning: resulting model-implied covariance matrix is not postive-definite.
+
+Model-implied covariance matrix Sigma turned out to be not positive-definite after local minima was presumambly achieved by an optimization routine. May imply bad data and/or issues with model specifiction.
+
+
+> Warning: Couldn't compute inverse for Sigma.
+
+Arises if `Optimizer` has it's member variable `omit_runtime_warnings` set to `False` (default is `True`), it means that model-implied Sigma matrix happened to be not positively-definited and that led to a failure when computing it's inverse. Take a note that this warning is never printed by default, as casually it is something that is okay to happen. SLSQP, for instance, will make adjustments to a descent direction and speed if this happens and usually problems with estimation are effectively avoided.
+
 
 ## Documentation
 All methods and classes have a docstring provided and a **Sphinx**-generated documentation is also available at [ReadTheDocs](semopy.readthedocs.io). For more details see an article.
